@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:facebook="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#FFF">
+    
+    <LinearLayout android:orientation="vertical"
+			      android:layout_width="match_parent"
+			      android:layout_height="wrap_content"
+                  android:background="#FFF">
+       
+        <ImageView
+		        android:id="@+id/userPicture"
+		        android:layout_width="150dp"
+		        android:layout_height="150dp"
+		        android:layout_gravity="center_horizontal"
+		        android:layout_marginTop="10dp"
+		        android:src="@drawable/app_icon"/>     
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="vertical"
+			      android:layout_width="match_parent"
+			      android:layout_height="wrap_content"
+                  android:background="#FFF">
+       
+        <TextView android:id="@+id/usersName" 
+            	  android:layout_width="wrap_content"
+            	  android:layout_height="wrap_content"
+            	  android:layout_gravity="center_horizontal"
+            	  android:layout_marginTop="10dp"
+            	  android:text="usersName"/>
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="vertical"      
+        		  android:layout_width="match_parent"
+        		  android:layout_height="wrap_content"
+                  android:background="#FFF">
+       
+        <com.facebook.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                facebook:confirm_logout="false"
+                facebook:fetch_user_info="true"
+                android:layout_gravity="center_horizontal"
+                />
+    </LinearLayout>    
+</LinearLayout>
