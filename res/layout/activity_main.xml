@@ -29,7 +29,8 @@
             	  android:layout_height="wrap_content"
             	  android:layout_gravity="center_horizontal"
             	  android:layout_marginTop="20dp"
-            	  android:text="usersName"/>
+            	  android:textSize="25sp"
+            	  android:text="@string/pre_usersname"/>
     </LinearLayout>
     
     <LinearLayout android:orientation="vertical"      
@@ -59,7 +60,6 @@
             	android:layout_marginTop="10dp"
             	android:text="@string/pullDataButtonText"
             	android:background="@drawable/textlines_blue"
-            	android:textColor="#3399FF"
             	android:textStyle="bold"
             	android:layout_gravity="center_horizontal"/>
     </LinearLayout>    

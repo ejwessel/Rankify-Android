@@ -13,5 +13,8 @@
         down over albums, photos, videos, and statuses.</string>
     <string name="title_activity_custom">CustomActivity</string>
     <string name="title_activity_test">TestActivity</string>
-
+	<string name="pre_usersname">Please Login</string>	
+    
+	<color name="blueButtonColor">#3399FF</color>
+    <color name="grayButtonColor">#C0C0C0</color>
 </resources>

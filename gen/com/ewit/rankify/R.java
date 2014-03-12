@@ -157,6 +157,7 @@ containing a value of this type.
         public static final int title_text=0x7f010003;
     }
     public static final class color {
+        public static final int blueButtonColor=0x7f070007;
         public static final int com_facebook_blue=0x7f070002;
         public static final int com_facebook_loginview_text_color=0x7f070006;
         public static final int com_facebook_picker_search_bar_background=0x7f070000;
@@ -164,6 +165,7 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_connected_shadow_color=0x7f070004;
         public static final int com_facebook_usersettingsfragment_connected_text_color=0x7f070003;
         public static final int com_facebook_usersettingsfragment_not_connected_text_color=0x7f070005;
+        public static final int grayButtonColor=0x7f070008;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -316,6 +318,7 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logged_in=0x7f080009;
         public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f08000a;
         public static final int hello_world=0x7f08001b;
+        public static final int pre_usersname=0x7f080023;
         public static final int pullDataButtonText=0x7f08001e;
         public static final int rankifyAboutDes=0x7f080020;
         public static final int title_activity_about=0x7f08001f;
