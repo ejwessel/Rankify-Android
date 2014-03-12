@@ -15,7 +15,7 @@
 		        android:layout_width="150dp"
 		        android:layout_height="150dp"
 		        android:layout_gravity="center_horizontal"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="20dp"
 		        android:src="@drawable/app_icon"/>     
     </LinearLayout>
     
@@ -28,7 +28,7 @@
             	  android:layout_width="wrap_content"
             	  android:layout_height="wrap_content"
             	  android:layout_gravity="center_horizontal"
-            	  android:layout_marginTop="10dp"
+            	  android:layout_marginTop="20dp"
             	  android:text="usersName"/>
     </LinearLayout>
     
@@ -40,11 +40,43 @@
         <com.facebook.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 facebook:confirm_logout="false"
                 facebook:fetch_user_info="true"
                 android:layout_gravity="center_horizontal"
                 />
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="vertical"      
+        		  android:layout_width="match_parent"
+        		  android:layout_height="wrap_content"
+                  android:background="#FFF">
+       
+        <Button android:id="@+id/pullDataButton"
+            	android:layout_width="150dp"
+            	android:layout_height="40dp"
+            	android:layout_marginTop="10dp"
+            	android:text="@string/pullDataButtonText"
+            	android:background="@drawable/textlines_blue"
+            	android:textColor="#3399FF"
+            	android:textStyle="bold"
+            	android:layout_gravity="center_horizontal"/>
+    </LinearLayout>    
+    
+    <LinearLayout android:orientation="vertical"      
+        		  android:layout_width="match_parent"
+        		  android:layout_height="wrap_content"
+                  android:background="#FFF">
+       
+        <Button android:id="@+id/aboutButton"
+            	android:layout_width="150dp"
+            	android:layout_height="40dp"
+            	android:layout_marginTop="10dp"
+            	android:text="@string/aboutButtonText"
+            	android:background="@drawable/textlines_blue"
+            	android:textColor="#3399FF"
+            	android:textStyle="bold"
+            	android:layout_gravity="center_horizontal"/>
     </LinearLayout>    
 </LinearLayout>
