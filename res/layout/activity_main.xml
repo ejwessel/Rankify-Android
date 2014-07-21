@@ -10,13 +10,22 @@
 			      android:layout_height="wrap_content"
                   android:background="#FFF">
        
-        <ImageView
+       <!--  <ImageView
 		        android:id="@+id/userPicture"
 		        android:layout_width="150dp"
 		        android:layout_height="150dp"
 		        android:layout_gravity="center_horizontal"
 		        android:layout_marginTop="20dp"
-		        android:src="@drawable/app_icon"/>     
+		        android:src="@drawable/app_icon"/> -->
+        
+         <com.facebook.widget.ProfilePictureView
+                    android:id="@+id/profilePicture"
+                    android:layout_height="150dp"
+                    android:layout_width="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    facebook:preset_size="normal"/>
+         <!--android:foreground="@drawable/app_icon"  -->
     </LinearLayout>
     
     <LinearLayout android:orientation="vertical"

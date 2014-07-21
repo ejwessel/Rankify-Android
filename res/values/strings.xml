@@ -13,8 +13,17 @@
         down over albums, photos, videos, and statuses.</string>
     <string name="title_activity_custom">CustomActivity</string>
     <string name="title_activity_test">TestActivity</string>
-	<string name="pre_usersname">Please Login</string>	
-    
-	<color name="blueButtonColor">#3399FF</color>
+    <string name="pre_usersname">Please Login</string>
+
+    <color name="blueButtonColor">#3399FF</color>
     <color name="grayButtonColor">#C0C0C0</color>
+
+    <string name="title_activity_calculate">Calculate</string>
+    <string name="finding_friends_label">FINDING FRIENDS</string>
+    <string name="sorting_albums_label">SORTING ALBUMS</string>
+    <string name="recording_videos_label">RECORDING VIDEOS</string>
+    <string name="skimming_statuses_label">SKIMMING STATUSES</string>
+    <string name="processing_photos_label">PROCESSING PHOTOS</string>
+    <string name="ranking_friends_label">RANKING FRIENDS</string>
+    
 </resources>
