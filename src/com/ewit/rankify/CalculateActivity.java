@@ -40,6 +40,7 @@ public class CalculateActivity extends CustomActivity {
 	private Button continueButton;
 	private String userID;
 	private String accessToken;
+	private JSONArray friendList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +82,27 @@ public class CalculateActivity extends CustomActivity {
 		continueButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				//					//go to pull data activity
-				//					startActivity(new Intent(CalculateActivity.this, listView.class));
-				//					overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+				//go to pull data activity
+
+				Intent friendListIntent = new Intent(CalculateActivity.this, FriendList.class);
+				friendListIntent.putExtra("pass", true);
+				friendListIntent.putExtra("jsonArray", friendList.toString());
+				startActivity(friendListIntent);
+				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
 			}
 		});
 
+		//		if (!passedValues.getString("hasFriends").equals("true")) {
 		compute();
-
+		//		} else {
+		//			refreshButton.setEnabled(true);
+		//			refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+		//			refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+		//
+		//			continueButton.setEnabled(true);
+		//			continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+		//			continueButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+		//		}
 	}
 
 	private void compute() {
@@ -461,9 +475,9 @@ public class CalculateActivity extends CustomActivity {
 
 			try {
 
-				JSONArray jsonArray = new JSONArray(result);
+				friendList = new JSONArray(result);
 
-				if (jsonArray.length() != 0) {
+				if (friendList.length() != 0) {
 					System.out.println("Obtained photoData Successfully");
 					statusRanking.setVisibility(View.INVISIBLE);
 					retrievingDataCheck.setImageResource(R.drawable.checkmark);
@@ -476,6 +490,7 @@ public class CalculateActivity extends CustomActivity {
 					continueButton.setEnabled(true);
 					continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
 					continueButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+
 				} else {
 					System.out.println("Unable to obtain photoData Successfully");
 					retrievingDataCheck.setVisibility(View.VISIBLE);

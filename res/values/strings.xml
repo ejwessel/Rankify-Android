@@ -27,5 +27,6 @@
 
     <color name="blueButtonColor">#3399FF</color>
     <color name="grayButtonColor">#C0C0C0</color>
+    <string name="title_activity_friend_list">Ranked Friends</string>
 
 </resources>
