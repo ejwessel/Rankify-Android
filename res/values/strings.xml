@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="site_path">http://e-wit.co.uk/rankify/</string>
     <string name="app_name">Rankify</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="app_id">1397650163819409</string>
     <string name="aboutButtonText">ABOUT</string>
     <string name="pullDataButtonText">PULL DATA</string>
+    <string name="refreshDataButtonText">REFRESH DATA</string>
+    <string name="continueButtonText">CONTINUE</string>
+    <string name="finding_friends_label">FINDING FRIENDS</string>
+    <string name="sorting_albums_label">SORTING ALBUMS</string>
+    <string name="recording_videos_label">RECORDING VIDEOS</string>
+    <string name="skimming_statuses_label">SKIMMING STATUSES</string>
+    <string name="processing_photos_label">PROCESSING PHOTOS</string>
+    <string name="ranking_friends_label">RANKING FRIENDS</string>
     <string name="title_activity_about">About</string>
+    <string name="title_activity_calculate">Calculate</string>
     <string name="rankifyAboutDes">        Rankify allows you to rank your Facebook friends by gathering the number
         of likes and comments that each friend has given you. Information on the likes and comments is broken
         down over albums, photos, videos, and statuses.</string>
@@ -18,12 +28,4 @@
     <color name="blueButtonColor">#3399FF</color>
     <color name="grayButtonColor">#C0C0C0</color>
 
-    <string name="title_activity_calculate">Calculate</string>
-    <string name="finding_friends_label">FINDING FRIENDS</string>
-    <string name="sorting_albums_label">SORTING ALBUMS</string>
-    <string name="recording_videos_label">RECORDING VIDEOS</string>
-    <string name="skimming_statuses_label">SKIMMING STATUSES</string>
-    <string name="processing_photos_label">PROCESSING PHOTOS</string>
-    <string name="ranking_friends_label">RANKING FRIENDS</string>
-    
 </resources>

@@ -54,7 +54,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				//go to pull data activity
-				startActivity(new Intent(MainActivity.this, CalculateActivity.class));
+				Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
+				calculateIntent.putExtra("userID", userID);
+				calculateIntent.putExtra("accessToken", accessToken);
+				startActivity(calculateIntent);
 				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
 			}
 		});

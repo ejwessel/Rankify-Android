@@ -1,162 +1,260 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:facebook="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="#FFF">
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
-        android:orientation="vertical" >
+        android:orientation="horizontal"
+        android:padding="7dp" >
 
-         <LinearLayout 
-            android:orientation="horizontal"
+        <FrameLayout
             android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
- 	        
-	        <ProgressBar
-	            android:id="@+id/progressBar1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	
-	        <TextView
-	            android:id="@+id/TextView0"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/finding_friends_label"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textColor="@color/blueButtonColor"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
+            android:layout_height="wrap_content" >
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/gatheringFriendsCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/friendStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/TextView0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/finding_friends_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/blueButtonColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
-    
-    <LinearLayout android:orientation="vertical"
-			      android:layout_width="match_parent"
-			      android:layout_height="wrap_content"
-                  android:background="#FFF">
 
-         <LinearLayout 
-            android:orientation="horizontal"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal"
+        android:padding="7dp" >
+
+        <FrameLayout
             android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
-	        <ProgressBar
-	            android:id="@+id/ProgressBar01"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	
-	        <TextView
-	            android:id="@+id/textView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/sorting_albums_label"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
-        </LinearLayout>
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/gatheringAlbumsCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/albumStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/sorting_albums_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
-    
-    <LinearLayout android:orientation="vertical"
-			      android:layout_width="match_parent"
-			      android:layout_height="wrap_content"
-                  android:background="#FFF">
 
-         <LinearLayout 
-            android:orientation="horizontal"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal"
+        android:padding="7dp" >
+
+        <FrameLayout
             android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
-	        <ProgressBar
-	            android:id="@+id/ProgressBar02"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	
-	        <TextView
-	            android:id="@+id/textView2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/recording_videos_label"
-	            android:textColor="@color/blueButtonColor"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
-        </LinearLayout>
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/gatheringVideosCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/videosStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/recording_videos_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/blueButtonColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
-    
-    <LinearLayout android:orientation="vertical"      
-        		  android:layout_width="match_parent"
-        		  android:layout_height="wrap_content"
-                  android:background="#FFF">
 
-         <LinearLayout 
-            android:orientation="horizontal"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal"
+        android:padding="7dp" >
+
+        <FrameLayout
             android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
-	        <ProgressBar
-	            android:id="@+id/ProgressBar03"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	
-	        <TextView
-	            android:id="@+id/textView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/skimming_statuses_label"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
-		</LinearLayout>
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/gatheringStatusesCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/statusStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/skimming_statuses_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
-    
-    <LinearLayout android:orientation="vertical"      
-        		  android:layout_width="match_parent"
-        		  android:layout_height="wrap_content"
-                  android:background="#FFF">
 
-         <LinearLayout 
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
-	        <ProgressBar
-	            android:id="@+id/ProgressBar04"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	
-	        <TextView
-	            android:id="@+id/textView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/processing_photos_label"
-	            android:textColor="@color/blueButtonColor"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
-         </LinearLayout>
-    </LinearLayout>    
-    
-    <LinearLayout android:orientation="vertical"      
-        		  android:layout_width="match_parent"
-        		  android:layout_height="wrap_content"
-                  android:background="#FFF">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal"
+        android:padding="7dp" >
 
-         <LinearLayout 
-            android:orientation="horizontal"
+        <FrameLayout
             android:layout_width="wrap_content"
- 	        android:layout_height="wrap_content">
-	        <ProgressBar
-	            android:id="@+id/ProgressBar05"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	        <TextView
-	            android:id="@+id/textView5"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/ranking_friends_label"
-	            android:textAppearance="?android:attr/textAppearanceLarge"
-	            android:textSize="20sp"
-	            android:padding="5dp" />
-		</LinearLayout>
-    </LinearLayout>    
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/gatheringPhotosCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/photosStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/processing_photos_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/blueButtonColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal"
+        android:padding="7dp" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/retrievingDataCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/checkmark" />
+
+            <ProgressBar
+                android:id="@+id/retrievingData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/ranking_friends_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/refreshDataButton"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textlines_blue"
+            android:text="@string/refreshDataButtonText"
+            android:textColor="@color/blueButtonColor"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/continueButton"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textlines_blue"
+            android:text="@string/continueButtonText"
+            android:textColor="@color/blueButtonColor"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </LinearLayout>

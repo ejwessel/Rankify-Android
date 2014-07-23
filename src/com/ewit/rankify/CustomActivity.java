@@ -1,5 +1,7 @@
 package com.ewit.rankify;
 
+import java.net.MalformedURLException;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
