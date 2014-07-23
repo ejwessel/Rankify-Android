@@ -71,20 +71,6 @@ public class CalculateActivity extends CustomActivity {
 		refreshButton = (Button) findViewById(R.id.refreshDataButton);
 		continueButton = (Button) findViewById(R.id.continueButton);
 
-		statusFriends.setVisibility(View.INVISIBLE);
-		statusAlbums.setVisibility(View.INVISIBLE);
-		statusVideos.setVisibility(View.INVISIBLE);
-		statusStatus.setVisibility(View.INVISIBLE);
-		statusPhotos.setVisibility(View.INVISIBLE);
-		statusRanking.setVisibility(View.INVISIBLE);
-
-		gatheringFriendsCheck.setVisibility(View.INVISIBLE);
-		gatheringAlbumsCheck.setVisibility(View.INVISIBLE);
-		gatheringVideosCheck.setVisibility(View.INVISIBLE);
-		gatheringStatusesCheck.setVisibility(View.INVISIBLE);
-		gatheringPhotosCheck.setVisibility(View.INVISIBLE);
-		retrievingDataCheck.setVisibility(View.INVISIBLE);
-
 		refreshButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -107,6 +93,20 @@ public class CalculateActivity extends CustomActivity {
 
 	private void compute() {
 		System.out.println("Starting to Compute...");
+
+		statusFriends.setVisibility(View.INVISIBLE);
+		statusAlbums.setVisibility(View.INVISIBLE);
+		statusVideos.setVisibility(View.INVISIBLE);
+		statusStatus.setVisibility(View.INVISIBLE);
+		statusPhotos.setVisibility(View.INVISIBLE);
+		statusRanking.setVisibility(View.INVISIBLE);
+
+		gatheringFriendsCheck.setVisibility(View.INVISIBLE);
+		gatheringAlbumsCheck.setVisibility(View.INVISIBLE);
+		gatheringVideosCheck.setVisibility(View.INVISIBLE);
+		gatheringStatusesCheck.setVisibility(View.INVISIBLE);
+		gatheringPhotosCheck.setVisibility(View.INVISIBLE);
+		retrievingDataCheck.setVisibility(View.INVISIBLE);
 
 		refreshButton.setEnabled(false);
 		refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
@@ -157,25 +157,24 @@ public class CalculateActivity extends CustomActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			try {
-				JSONObject jsonObject = new JSONObject(result);				
+				JSONObject jsonObject = new JSONObject(result);
 				String status = (String) jsonObject.get("status");
-				if(status.equals("success")){
+				if (status.equals("success")) {
 					System.out.println("Obtained friendData Successfully");
 					statusFriends.setVisibility(View.INVISIBLE);
 					gatheringFriendsCheck.setImageResource(R.drawable.checkmark);
 					gatheringFriendsCheck.setVisibility(View.VISIBLE);
 					statusAlbums.setVisibility(View.VISIBLE);
-					
+
 					new PullAlbums().execute(userID, accessToken);
-				}
-				else{
+				} else {
 					System.out.println("Unable to obtain friendData Successfully");
 					gatheringFriendsCheck.setVisibility(View.VISIBLE);
 					gatheringFriendsCheck.setImageResource(R.drawable.xmark);
 				}
-				
+
 				System.out.println("PullFriends Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -189,7 +188,6 @@ public class CalculateActivity extends CustomActivity {
 			System.out.println("PullAlbums Started");
 			String responseString = null;
 			String urlPath = getString(R.string.site_path) + "albums/pullAlbums/" + userID + "/" + accessToken;
-			
 
 			URL url;
 			try {
@@ -219,31 +217,30 @@ public class CalculateActivity extends CustomActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			try {
-				JSONObject jsonObject = new JSONObject(result);				
+				JSONObject jsonObject = new JSONObject(result);
 				String status = (String) jsonObject.get("status");
-				if(status.equals("success")){
+				if (status.equals("success")) {
 					System.out.println("Obtained albumData Successfully");
 					statusAlbums.setVisibility(View.INVISIBLE);
 					gatheringAlbumsCheck.setImageResource(R.drawable.checkmark);
 					gatheringAlbumsCheck.setVisibility(View.VISIBLE);
 					statusVideos.setVisibility(View.VISIBLE);
-					
+
 					new PullVideos().execute(userID, accessToken);
-				}
-				else{
+				} else {
 					System.out.println("Unable to obtain albumData Successfully");
 					gatheringAlbumsCheck.setVisibility(View.VISIBLE);
 					gatheringAlbumsCheck.setImageResource(R.drawable.xmark);
 				}
-				
+
 				System.out.println("PullAlbums Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	class PullVideos extends AsyncTask<String, String, String> {
 
 		@Override
@@ -251,7 +248,6 @@ public class CalculateActivity extends CustomActivity {
 			System.out.println("PullVideos Started");
 			String responseString = null;
 			String urlPath = getString(R.string.site_path) + "videos/pullVideos/" + userID + "/" + accessToken;
-			
 
 			URL url;
 			try {
@@ -281,31 +277,30 @@ public class CalculateActivity extends CustomActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			try {
-				JSONObject jsonObject = new JSONObject(result);				
+				JSONObject jsonObject = new JSONObject(result);
 				String status = (String) jsonObject.get("status");
-				if(status.equals("success")){
+				if (status.equals("success")) {
 					System.out.println("Obtained videoData Successfully");
 					statusVideos.setVisibility(View.INVISIBLE);
 					gatheringVideosCheck.setImageResource(R.drawable.checkmark);
 					gatheringVideosCheck.setVisibility(View.VISIBLE);
 					statusStatus.setVisibility(View.VISIBLE);
-					
+
 					new PullStatuses().execute(userID, accessToken);
-				}
-				else{
+				} else {
 					System.out.println("Unable to obtain videoData Successfully");
 					gatheringVideosCheck.setVisibility(View.VISIBLE);
 					gatheringVideosCheck.setImageResource(R.drawable.xmark);
 				}
-				
+
 				System.out.println("PullVideos Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	class PullStatuses extends AsyncTask<String, String, String> {
 
 		@Override
@@ -313,7 +308,6 @@ public class CalculateActivity extends CustomActivity {
 			System.out.println("PullStatuses Started");
 			String responseString = null;
 			String urlPath = getString(R.string.site_path) + "statuses/pullStatuses/" + userID + "/" + accessToken;
-			
 
 			URL url;
 			try {
@@ -343,25 +337,24 @@ public class CalculateActivity extends CustomActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			try {
-				JSONObject jsonObject = new JSONObject(result);				
+				JSONObject jsonObject = new JSONObject(result);
 				String status = (String) jsonObject.get("status");
-				if(status.equals("success")){
+				if (status.equals("success")) {
 					System.out.println("Obtained videoData Successfully");
 					statusStatus.setVisibility(View.INVISIBLE);
 					gatheringStatusesCheck.setImageResource(R.drawable.checkmark);
 					gatheringStatusesCheck.setVisibility(View.VISIBLE);
 					statusPhotos.setVisibility(View.VISIBLE);
-					
+
 					new PullPhotos().execute(userID, accessToken);
-				}
-				else{
+				} else {
 					System.out.println("Unable to obtain videoData Successfully");
 					gatheringStatusesCheck.setVisibility(View.VISIBLE);
 					gatheringStatusesCheck.setImageResource(R.drawable.xmark);
 				}
-				
+
 				System.out.println("PullVideos Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -375,7 +368,6 @@ public class CalculateActivity extends CustomActivity {
 			System.out.println("PullPhotos Started");
 			String responseString = null;
 			String urlPath = getString(R.string.site_path) + "photos/pullPhotos/" + userID + "/" + accessToken;
-			
 
 			URL url;
 			try {
@@ -405,25 +397,24 @@ public class CalculateActivity extends CustomActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			try {
-				JSONObject jsonObject = new JSONObject(result);				
+				JSONObject jsonObject = new JSONObject(result);
 				String status = (String) jsonObject.get("status");
-				if(status.equals("success")){
+				if (status.equals("success")) {
 					System.out.println("Obtained photoData Successfully");
 					statusPhotos.setVisibility(View.INVISIBLE);
 					gatheringPhotosCheck.setImageResource(R.drawable.checkmark);
 					gatheringPhotosCheck.setVisibility(View.VISIBLE);
 					statusRanking.setVisibility(View.VISIBLE);
-					
+
 					new GetFriendData().execute(userID);
-				}
-				else{
+				} else {
 					System.out.println("Unable to obtain photoData Successfully");
 					gatheringPhotosCheck.setVisibility(View.VISIBLE);
 					gatheringPhotosCheck.setImageResource(R.drawable.xmark);
 				}
-				
+
 				System.out.println("PullPhotos Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -465,40 +456,45 @@ public class CalculateActivity extends CustomActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			
+
 			System.out.println(result);
-			
+
 			try {
-				
-				
+
 				JSONArray jsonArray = new JSONArray(result);
-				
-				if(jsonArray.length() != 0){
+
+				if (jsonArray.length() != 0) {
 					System.out.println("Obtained photoData Successfully");
 					statusRanking.setVisibility(View.INVISIBLE);
 					retrievingDataCheck.setImageResource(R.drawable.checkmark);
 					retrievingDataCheck.setVisibility(View.VISIBLE);
-					
-					//enable UI at this point
-					System.out.println("ui should be enabled at this point");
-				}
-				else{
+
+					refreshButton.setEnabled(true);
+					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+					refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+
+					continueButton.setEnabled(true);
+					continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+					continueButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+				} else {
 					System.out.println("Unable to obtain photoData Successfully");
 					retrievingDataCheck.setVisibility(View.VISIBLE);
 					retrievingDataCheck.setImageResource(R.drawable.xmark);
-					
-					//enable recompute button
+
+					refreshButton.setEnabled(true);
+					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+					refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
 				}
-				
+
 				System.out.println("GetFriendData Finished");
-				
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 				System.out.println(e.toString());
 			}
 		}
 	}
-	
+
 	public static String fromStream(InputStream in) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		StringBuilder out = new StringBuilder();
