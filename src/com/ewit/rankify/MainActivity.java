@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				//go to pull data activity
-				
+
 				Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
 				calculateIntent.putExtra("userID", userID);
 				calculateIntent.putExtra("accessToken", accessToken);
@@ -81,10 +81,11 @@ public class MainActivity extends Activity {
 		loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
 			@Override
 			public void onUserInfoFetched(GraphUser user) {
+				//when the user is logging in
 				if (user != null) {
 					//gather user info after successful login
 					userID = user.getId();
-					new GetFriendData().execute(userID); //immediately check if they're in our database
+					new GetFriendData().execute(userID); // as soon as we get user id, immediately check if they're in our database
 					usersName.setText(user.getName());
 					session = Session.getActiveSession();
 					accessToken = session.getAccessToken();
@@ -94,7 +95,9 @@ public class MainActivity extends Activity {
 					System.out.println(user);
 					System.out.println("access token:" + accessToken);
 
-				} else {
+				}
+				//when the user is logging out
+				else {
 					//set visual changes
 					usersName.setText(getResources().getString(R.string.pre_usersname));
 					profilePictureView.setProfileId(null);
@@ -105,10 +108,9 @@ public class MainActivity extends Activity {
 
 			}
 		});
-		
-		
+
 	}
-	
+
 	class GetFriendData extends AsyncTask<String, String, String> {
 
 		@Override
@@ -148,20 +150,19 @@ public class MainActivity extends Activity {
 				JSONObject jsonObject = new JSONObject(result);
 				hasFriends = jsonObject.getString("hasFriends");
 				System.out.println("GetFriendData Finished");
-				
-				//set visual changes only after we know if they do or do not have friends to display
+
+				//set visual changes only after we get response from server
 				profilePictureView.setProfileId(userID);
 				pullDataButton.setEnabled(true);
-				pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
-				pullDataButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
-
+				pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_bluebackground));
+				pullDataButton.setTextColor(getResources().getColor(R.color.whiteColor));
 
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public static String fromStream(InputStream in) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		StringBuilder out = new StringBuilder();
@@ -173,7 +174,7 @@ public class MainActivity extends Activity {
 		}
 		return out.toString();
 	}
-	
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

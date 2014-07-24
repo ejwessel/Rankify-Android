@@ -494,19 +494,19 @@ public class CalculateActivity extends CustomActivity {
 
 				friendList = new JSONArray(result);
 
-				if (friendList.length() != 0) {
+				if (friendList.length() > 0) {
 					System.out.println("Obtained photoData Successfully");
 					statusRanking.setVisibility(View.INVISIBLE);
 					retrievingDataCheck.setImageResource(R.drawable.checkmark);
 					retrievingDataCheck.setVisibility(View.VISIBLE);
 
 					refreshButton.setEnabled(true);
-					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_whitebackground));
 					refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
 
 					continueButton.setEnabled(true);
-					continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
-					continueButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
+					continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_bluebackground));
+					continueButton.setTextColor(getResources().getColor(R.color.whiteColor));
 
 				} else {
 					System.out.println("Unable to obtain photoData Successfully");
@@ -514,7 +514,7 @@ public class CalculateActivity extends CustomActivity {
 					retrievingDataCheck.setImageResource(R.drawable.xmark);
 
 					refreshButton.setEnabled(true);
-					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
+					refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_whitebackground));
 					refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
 				}
 
