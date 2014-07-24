@@ -41,6 +41,7 @@ public class CalculateActivity extends CustomActivity {
 	private String userID;
 	private String accessToken;
 	private JSONArray friendList;
+	private Boolean hasFriends;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class CalculateActivity extends CustomActivity {
 		if (passedValues != null) {
 			userID = passedValues.getString("userID");
 			accessToken = passedValues.getString("accessToken");
+			hasFriends = passedValues.getBoolean("hasFriends");
 
 			System.out.println("userID:" + userID + ", accessToken: " + accessToken);
 		}
@@ -70,7 +72,15 @@ public class CalculateActivity extends CustomActivity {
 		retrievingDataCheck = (ImageView) findViewById(R.id.retrievingDataCheck);
 
 		refreshButton = (Button) findViewById(R.id.refreshDataButton);
-		continueButton = (Button) findViewById(R.id.continueButton);
+		continueButton = (Button) findViewById(R.id.continueButton);refreshButton.setEnabled(false);
+	
+		refreshButton.setEnabled(false);
+		refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
+		refreshButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
+
+		continueButton.setEnabled(false);
+		continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
+		continueButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
 
 		refreshButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -85,24 +95,31 @@ public class CalculateActivity extends CustomActivity {
 				//go to pull data activity
 
 				Intent friendListIntent = new Intent(CalculateActivity.this, FriendList.class);
-				friendListIntent.putExtra("pass", true);
 				friendListIntent.putExtra("jsonArray", friendList.toString());
 				startActivity(friendListIntent);
 				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
 			}
 		});
 
-		//		if (!passedValues.getString("hasFriends").equals("true")) {
-		compute();
-		//		} else {
-		//			refreshButton.setEnabled(true);
-		//			refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
-		//			refreshButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
-		//
-		//			continueButton.setEnabled(true);
-		//			continueButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue));
-		//			continueButton.setTextColor(getResources().getColor(R.color.blueButtonColor));
-		//		}
+		if (!passedValues.getString("hasFriends").equals("1")) {
+			compute();
+		} else {	
+			statusFriends.setVisibility(View.INVISIBLE);
+			statusAlbums.setVisibility(View.INVISIBLE);
+			statusVideos.setVisibility(View.INVISIBLE);
+			statusStatus.setVisibility(View.INVISIBLE);
+			statusPhotos.setVisibility(View.INVISIBLE);
+			statusRanking.setVisibility(View.INVISIBLE);
+
+			gatheringFriendsCheck.setVisibility(View.VISIBLE);
+			gatheringAlbumsCheck.setVisibility(View.VISIBLE);
+			gatheringVideosCheck.setVisibility(View.VISIBLE);
+			gatheringStatusesCheck.setVisibility(View.VISIBLE);
+			gatheringPhotosCheck.setVisibility(View.VISIBLE);
+			retrievingDataCheck.setVisibility(View.VISIBLE);
+			
+			new GetFriendData().execute(userID);
+		}
 	}
 
 	private void compute() {

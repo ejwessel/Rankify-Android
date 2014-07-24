@@ -26,7 +26,6 @@ public class FriendList extends CustomActivity {
 
 		ListView friendList = (ListView) findViewById(R.id.friendList);
 		Bundle passedValues = getIntent().getExtras();
-		Boolean pass = passedValues.getBoolean("pass");
 		String stringArray = passedValues.getString("jsonArray");
 
 		try {
@@ -70,18 +69,21 @@ public class FriendList extends CustomActivity {
 		//		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.friend_list, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+////		 Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.friend_list, menu);
+//		return true;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 
 		super.onOptionsItemSelected(menuItem);
-		startActivity(new Intent(FriendList.this, CalculateActivity.class));
+		Intent intent = new Intent(FriendList.this, CalculateActivity.class);
+		//may need to putExtra info here so when a user goes back they dont recompute but instead keep it in a stable state
+		startActivity(intent);
+		
 		return true;
 	}
 
