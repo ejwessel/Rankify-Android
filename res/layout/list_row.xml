@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <!-- Thumbnail Image of person -->
+
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/checkmark"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".40"
+        android:padding="10dp" />
+
+    <!-- Rank -->
+
+    <TextView
+        android:id="@+id/user_rank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".40"
+        android:gravity="right"
+        android:padding="10dp"/>
+
+    <!-- Rightend Arrow -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/xmark"
+        android:padding="10dp" />
+
+</LinearLayout>

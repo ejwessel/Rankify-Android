@@ -1,23 +1,19 @@
 package com.ewit.rankify;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FriendList extends CustomActivity {
 
-	ListView friendList;
-	ArrayList<String> nameList = new ArrayList<String>();
+	ListView friendListView;
+	ArrayList<String> friendListData = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,43 +26,23 @@ public class FriendList extends CustomActivity {
 
 		try {
 			JSONArray friendData = new JSONArray(stringArray);
+			//place friend data into an array list; every index has a friend with corresponding data
 			for (int i = 0; i < friendData.length(); i++) {
-				nameList.add(friendData.get(i).toString());
+				friendListData.add(friendData.get(i).toString());
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 
-		//				nameList = new ArrayList<String>(Arrays.asList(jsonArray));
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList);
+		//An adapter acts as a bridge between the view and the data for a view.
+		//The adapter provides access to the data items(friendListData)
+		//An adapter is also responsible for making a view for each item in the data set...
+		//(context, resource, data)
+		//context = this
+		//resource will be the XML file you design
+		//data will be the friendListData passed in
+		FriendDataAdapter adapter = new FriendDataAdapter(this, android.R.layout.simple_list_item_1, friendListData);
 		friendList.setAdapter(adapter); //populates list
-		//		optionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		//			     public void onItemClick(AdapterView<?> parentAdapter, View view, int position, long id) {
-		//			         TextView clickedView = (TextView) view;
-		//			         String textClicked = clickedView.getText().toString();
-		//			         
-		//			         switch(position){
-		//			         	case 0: startActivity(new Intent(MainActivity.this, FrequenciesActivity.class));
-		//				         		overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//				         		break;
-		//			         	case 1: startActivity(new Intent(MainActivity.this, LengthsActivity.class));
-		//		         				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//		         				break;
-		//			         	case 2: startActivity(new Intent(MainActivity.this, VelocitiesActivity.class));
-		//		         				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//		         				break;
-		//			         	case 3: startActivity(new Intent(MainActivity.this, DimensionlessActivity.class));
-		//		         				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//		         				break;
-		//			         	case 4: startActivity(new Intent(MainActivity.this, MiscellaneousActivity.class));
-		//		         				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//		         				break;
-		//			         	case 5: startActivity(new Intent(MainActivity.this, AboutActivity.class));
-		//		         				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-		//		         				break;
-		//			         }
-		//			     }
-		//		});
 	}
 
 //	@Override
