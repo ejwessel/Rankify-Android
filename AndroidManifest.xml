@@ -9,7 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -53,6 +53,11 @@
         <activity
             android:name=".FriendList"
             android:label="@string/title_activity_friend_list"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SpecificsActivity"
+            android:label="@string/title_activity_specifics"
             android:screenOrientation="portrait" >
         </activity>
     </application>
