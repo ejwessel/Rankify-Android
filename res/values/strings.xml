@@ -31,5 +31,9 @@
 
     <string name="title_activity_friend_list">Ranked Friends</string>
     <string name="title_activity_specifics">User\'s Name</string>
-
+	<string name="title_rank">RANK</string>
+	<string name="title_total">TOTAL</string>
+	<string name="title_likes">LIKES</string>
+	<string name="title_comments">COMMENTS</string>
+    
 </resources>

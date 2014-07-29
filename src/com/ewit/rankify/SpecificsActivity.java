@@ -1,6 +1,13 @@
 package com.ewit.rankify;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -22,16 +29,21 @@ public class SpecificsActivity extends CustomActivity {
 	private TextView videoComments;
 	private TextView statusComments;
 	private TextView rank;
+	private TextView total;
+	private TextView likes;
+	private TextView comments;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.specifics_activity);
 		
-		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/futura-condensed-extrabold.ttf"); 
+		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/futura-condensed-extrabold.ttf");
 		  
 		rank = (TextView) findViewById(R.id.rank);
-		rank.setTypeface(type);
+		total = (TextView) findViewById(R.id.total);
+		likes = (TextView) findViewById(R.id.likes);
+		comments = (TextView) findViewById(R.id.comments);
 		userImage = (ImageView) findViewById(R.id.user_image);
 		rankPosition = (TextView) findViewById(R.id.rankPosition);
 		rankScore = (TextView) findViewById(R.id.rankScore);
@@ -45,6 +57,23 @@ public class SpecificsActivity extends CustomActivity {
 		photoComments = (TextView) findViewById(R.id.photoComments);
 		videoComments = (TextView) findViewById(R.id.videoComments);
 		statusComments = (TextView) findViewById(R.id.statusComments);
+
+		rank.setTypeface(type);
+		total.setTypeface(type);
+		likes.setTypeface(type);
+		comments.setTypeface(type);
+		rankPosition.setTypeface(type);
+		rankScore.setTypeface(type);
+		totalLikes.setTypeface(type);
+		totalComments.setTypeface(type);
+		albumLikes.setTypeface(type);
+		albumComments.setTypeface(type);
+		photoLikes.setTypeface(type);
+		photoComments.setTypeface(type);
+		videoLikes.setTypeface(type);
+		videoComments.setTypeface(type);
+		statusLikes.setTypeface(type);
+		statusComments.setTypeface(type);
 		
 		setTitle(getIntent().getStringExtra("user_name"));
 		rankPosition.setText(getIntent().getStringExtra("rankPosition"));
@@ -67,7 +96,7 @@ public class SpecificsActivity extends CustomActivity {
 //		getMenuInflater().inflate(R.menu.specifics, menu);
 //		return true;
 //	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
