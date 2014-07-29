@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="#FFF"
     android:orientation="vertical" >
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +20,11 @@
 
             <ImageView
                 android:id="@+id/userPicture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/user_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -30,16 +32,39 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blueButtonColor"
+                    android:text="RANK" />
+
+                <TextView
                     android:id="@+id/rankPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blueButtonColor"
+                    android:text="TOTAL" />
 
                 <TextView
                     android:id="@+id/rankScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -51,9 +76,20 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/blueButtonColor"
+                android:text="LIKES" />
+
+            <TextView
                 android:id="@+id/totalLikes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,12 +100,16 @@
             <TextView
                 android:id="@+id/albumLikes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
 
             <TextView
                 android:id="@+id/photoLikes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,12 +120,16 @@
             <TextView
                 android:id="@+id/videoLikes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
 
             <TextView
                 android:id="@+id/statusLikes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
         </LinearLayout>
 
         <!-- Comments Portion -->
@@ -96,9 +140,20 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/blueButtonColor"
+                android:text="COMMENTS" />
+
+            <TextView
                 android:id="@+id/totalComments"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,12 +164,16 @@
             <TextView
                 android:id="@+id/albumComments"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
 
             <TextView
                 android:id="@+id/photoComments"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="000" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,13 +181,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <TextView android:id="@+id/videoComments"
-                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/videoComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                android:padding="5dp"  />
 
-            <TextView android:id="@+id/statusComments"
-                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/statusComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                android:padding="5dp"  />
         </LinearLayout>
     </LinearLayout>
 
