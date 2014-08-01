@@ -37,14 +37,14 @@ public class SpecificsActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.specifics_activity);
-		
+			
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/futura-condensed-extrabold.ttf");
 		  
 		rank = (TextView) findViewById(R.id.rank);
 		total = (TextView) findViewById(R.id.total);
 		likes = (TextView) findViewById(R.id.likes);
 		comments = (TextView) findViewById(R.id.comments);
-		userImage = (ImageView) findViewById(R.id.user_image);
+		userImage = (ImageView) findViewById(R.id.userPicture);
 		rankPosition = (TextView) findViewById(R.id.rankPosition);
 		rankScore = (TextView) findViewById(R.id.rankScore);
 		totalLikes = (TextView) findViewById(R.id.totalLikes);
@@ -58,6 +58,8 @@ public class SpecificsActivity extends CustomActivity {
 		videoComments = (TextView) findViewById(R.id.videoComments);
 		statusComments = (TextView) findViewById(R.id.statusComments);
 
+		new ImageLoadTask(getIntent().getStringExtra("userPicture"), userImage).execute();
+		
 		rank.setTypeface(type);
 		total.setTypeface(type);
 		likes.setTypeface(type);
@@ -76,7 +78,7 @@ public class SpecificsActivity extends CustomActivity {
 		statusComments.setTypeface(type);
 		
 		setTitle(getIntent().getStringExtra("user_name"));
-		rankPosition.setText(getIntent().getStringExtra("rankPosition"));
+		rankPosition.setText("#" + getIntent().getStringExtra("rankPosition"));
 		rankScore.setText(String.valueOf(getIntent().getIntExtra("totalLikes", 0) + getIntent().getIntExtra("totalComments", 0)));
 		totalLikes.setText(String.valueOf(getIntent().getIntExtra("totalLikes", 0)));
 		albumLikes.setText(String.valueOf(getIntent().getIntExtra("albumLikes", 0)));
@@ -96,6 +98,43 @@ public class SpecificsActivity extends CustomActivity {
 //		getMenuInflater().inflate(R.menu.specifics, menu);
 //		return true;
 //	}
+	
+	public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+
+	    private String url;
+	    private ImageView imageView;
+
+	    public ImageLoadTask(String url, ImageView imageView) {
+	        this.url = url;
+	        this.imageView = imageView;
+	    }
+
+	    @Override
+	    protected Bitmap doInBackground(Void... params) {
+	        try {
+	        	System.out.println("LOADING USER IMAGE");
+	            URL urlConnection = new URL(url);
+	            HttpURLConnection connection = (HttpURLConnection) urlConnection
+	                    .openConnection();
+	            connection.setDoInput(true);
+	            connection.connect();
+	            InputStream input = connection.getInputStream();
+	            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+	            return myBitmap;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Bitmap result) {
+	        super.onPostExecute(result);
+	        imageView.setImageBitmap(result);
+	        System.out.println("FINISHED LOADING USER IMAGE");
+	    }
+
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

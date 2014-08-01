@@ -86,7 +86,6 @@ public class FriendDataAdapter extends ArrayAdapter<String> {
 				// show The Image
 				try {
 					String profilePictureSmall = userData.getString("profilePictureSmall");
-//					new ImageDownloader(userImage).execute(profilePictureSmall);
 					imageLoader.DisplayImage(profilePictureSmall, userImage);
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -119,32 +118,4 @@ public class FriendDataAdapter extends ArrayAdapter<String> {
 		return v;
 
 	}
-
-	class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-		ImageView bmImage;
-
-		public ImageDownloader(ImageView bmImage) {
-			this.bmImage = bmImage;
-		}
-
-		protected Bitmap doInBackground(String... urls) {
-			String url = urls[0];
-			Bitmap mIcon = null;
-			try {
-				InputStream in = new java.net.URL(url).openStream();
-				mIcon = BitmapFactory.decodeStream(in);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return mIcon;
-		}
-
-		protected void onPostExecute(Bitmap result) {
-			
-			System.out.println("downloaded image" + result);
-			
-			bmImage.setImageBitmap(result);
-		}
-	}
-
 }

@@ -16,7 +16,6 @@ import android.widget.ListView;
 
 public class FriendList extends CustomActivity {
 
-	ListView friendListView;
 	ArrayList<String> friendListData = new ArrayList<String>();
 
 	@Override
