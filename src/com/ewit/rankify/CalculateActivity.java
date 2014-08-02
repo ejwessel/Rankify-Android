@@ -538,11 +538,18 @@ public class CalculateActivity extends CustomActivity {
 		}
 		return out.toString();
 	}
-
+	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem menuItem) {
-		super.onOptionsItemSelected(menuItem);
-		startActivity(new Intent(CalculateActivity.this, MainActivity.class));
-		return true;
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+	    // Handle item selection
+	    switch (item.getItemId()) 
+	    {
+	        case android.R.id.home:
+	            onBackPressed();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 }

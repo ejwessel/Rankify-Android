@@ -96,15 +96,18 @@ public class FriendList extends CustomActivity {
 	//		return true;
 	//	}
 
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem menuItem) {
-
-		super.onOptionsItemSelected(menuItem);
-		Intent intent = new Intent(FriendList.this, CalculateActivity.class);
-		//may need to putExtra info here so when a user goes back they dont recompute but instead keep it in a stable state
-		startActivity(intent);
-
-		return true;
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+	    // Handle item selection
+	    switch (item.getItemId()) 
+	    {
+	        case android.R.id.home:
+	            onBackPressed();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
-
 }

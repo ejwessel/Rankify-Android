@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
 		});
 
 		usersName = (TextView) findViewById(R.id.usersName);
+		//need to set picture to icon
 		profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
 
 		pullDataButton = (Button) findViewById(R.id.pullDataButton);
