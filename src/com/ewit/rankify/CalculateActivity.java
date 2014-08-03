@@ -42,25 +42,17 @@ public class CalculateActivity extends CustomActivity {
 	private String userID;
 	private String accessToken;
 	private JSONArray friendList;
-	private Boolean hasFriends;
-	private ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calculate_activity);
 		
-//		actionBar = getActionBar();
-//		actionBar.setCustomView(R.layout.custom_action_bar_calculate);
-//		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
-		
 		//obtain passed data from previous activity
 		Bundle passedValues = getIntent().getExtras();
 		if (passedValues != null) {
 			userID = passedValues.getString("userID");
 			accessToken = passedValues.getString("accessToken");
-			hasFriends = passedValues.getBoolean("hasFriends");
-
 			System.out.println("userID:" + userID + ", accessToken: " + accessToken);
 		}
 
