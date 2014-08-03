@@ -1,6 +1,9 @@
 package com.ewit.rankify;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +12,7 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +20,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.facebook.FacebookRequestError;
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.RequestAsyncTask;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
 
 public class FriendList extends CustomActivity {
 
@@ -24,13 +37,17 @@ public class FriendList extends CustomActivity {
 	private ListView friendList;
 	private Button shareButton;
 
+	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
+	private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
+	private boolean pendingPublishReauthorization = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friendlist_activity);
 
 		friendList = (ListView) findViewById(R.id.friendList);
-		
+
 		Bundle passedValues = getIntent().getExtras();
 		String stringArray = passedValues.getString("jsonArray");
 
@@ -38,7 +55,7 @@ public class FriendList extends CustomActivity {
 		actionBar.setCustomView(R.layout.custom_action_bar_friendlist);
 		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
 		shareButton = (Button) actionBar.getCustomView().findViewById(R.id.shareButton);
-		
+
 		try {
 			JSONArray friendData = new JSONArray(stringArray);
 			//place friend data into an array list; every index has a friend with corresponding data
@@ -54,7 +71,7 @@ public class FriendList extends CustomActivity {
 			@Override
 			public void onClick(View v) {
 				System.out.println("Share Button Was Clicked");
-
+				publishStory();
 			}
 		});
 
@@ -111,12 +128,83 @@ public class FriendList extends CustomActivity {
 		friendList.setAdapter(adapter); //populates list
 	}
 
-	//	@Override
-	//	public boolean onCreateOptionsMenu(Menu menu) {
-	////		 Inflate the menu; this adds items to the action bar if it is present.
-	//		getMenuInflater().inflate(R.menu.friend_list, menu);
-	//		return true;
-	//	}
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+		if (state.isOpened()) {
+			shareButton.setVisibility(View.VISIBLE);
+		} else if (state.isClosed()) {
+			shareButton.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	private void publishStory() {
+		Session session = Session.getActiveSession();
+
+		if (session != null) {
+
+			// Check for publish permissions    
+			List<String> permissions = session.getPermissions();
+			if (!isSubsetOf(PERMISSIONS, permissions)) {
+				pendingPublishReauthorization = true;
+				Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(this, PERMISSIONS);
+				session.requestNewPublishPermissions(newPermissionsRequest);
+				return;
+			}
+
+			StringBuilder postString = new StringBuilder();
+			for (int i = 0; i < 10; i++) {
+				try {
+					JSONObject data = new JSONObject(friendListData.get(i));
+					String userDataString = data.getString("User");
+					JSONObject user = new JSONObject(userDataString);
+					postString.append(user.get("name") + "\n");
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+			Bundle postParams = new Bundle();
+						postParams.putString("name", "Facebook SDK for Android");
+						postParams.putString("caption", "Build great social apps and get more installs.");
+			//			postParams.putString("description", "The Facebook SDK for Android makes it easier and faster to develop Facebook integrated Android apps.");
+						postParams.putString("link", "https://developers.facebook.com/android");
+//						postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
+			postParams.putString("description", postString.toString());
+
+			Request.Callback callback = new Request.Callback() {
+				public void onCompleted(Response response) {
+					JSONObject graphResponse = response.getGraphObject().getInnerJSONObject();
+					String postId = null;
+					try {
+						postId = graphResponse.getString("id");
+					} catch (JSONException e) {
+						Log.i("TAG", "JSON error " + e.getMessage());
+					}
+					FacebookRequestError error = response.getError();
+					if (error != null) {
+						Toast.makeText(getApplicationContext(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(getApplicationContext(), "Friend List Posted to Facebook", Toast.LENGTH_LONG).show();
+					}
+				}
+			};
+
+			Request request = new Request(session, "me/feed", postParams, HttpMethod.POST, callback);
+
+			RequestAsyncTask task = new RequestAsyncTask(request);
+			task.execute();
+		}
+
+	}
+
+	private boolean isSubsetOf(Collection<String> subset, Collection<String> superset) {
+		for (String string : subset) {
+			if (!superset.contains(string)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
