@@ -55,6 +55,7 @@ public class FriendList extends CustomActivity {
 				if (userData != null) {
 					Intent calculateIntent = new Intent(FriendList.this, SpecificsActivity.class);
 					try {
+						calculateIntent.putExtra("user_id", userData.getString("user_id"));
 						calculateIntent.putExtra("user_name", userData.getString("name"));
 						calculateIntent.putExtra("userPicture", userData.getString("profilePictureLarge"));
 						calculateIntent.putExtra("rankPosition", userData.getString("rank"));

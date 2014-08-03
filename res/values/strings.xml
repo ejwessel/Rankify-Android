@@ -4,7 +4,6 @@
     <string name="site_path">http://e-wit.co.uk/rankify/</string>
     <string name="app_name">Rankify</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="app_id">1397650163819409</string>
     <string name="aboutButtonText">ABOUT</string>
     <string name="pullDataButtonText">PULL DATA</string>

@@ -5,14 +5,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,7 +63,7 @@ public class SpecificsActivity extends CustomActivity {
 		photoComments = (TextView) findViewById(R.id.photoComments);
 		videoComments = (TextView) findViewById(R.id.videoComments);
 		statusComments = (TextView) findViewById(R.id.statusComments);
-		
+
 		userImage.setImageResource(R.drawable.user_icon);
 		new ImageLoadTask(getIntent().getStringExtra("userPicture"), userImage).execute();
 
@@ -82,7 +84,6 @@ public class SpecificsActivity extends CustomActivity {
 		statusLikes.setTypeface(type);
 		statusComments.setTypeface(type);
 
-		setTitle(getIntent().getStringExtra("user_name"));
 		rankPosition.setText("#" + getIntent().getStringExtra("rankPosition"));
 		rankScore.setText(String.valueOf(getIntent().getIntExtra("totalLikes", 0) + getIntent().getIntExtra("totalComments", 0)));
 		totalLikes.setText(String.valueOf(getIntent().getIntExtra("totalLikes", 0)));
@@ -97,24 +98,21 @@ public class SpecificsActivity extends CustomActivity {
 		statusComments.setText(String.valueOf(getIntent().getIntExtra("statusComments", 0)));
 
 		actionBar = getActionBar();
+		actionBar.setCustomView(R.layout.custom_action_bar);
+		TextView titleTxtView = (TextView) actionBar.getCustomView().findViewById(R.id.actionBar_userName);
+		titleTxtView.setText(getIntent().getStringExtra("user_name"));
 		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
-		Button button = new  Button(actionBar.getThemedContext());
-		ImageView imageView = new ImageView(actionBar.getThemedContext());
-		imageView.setScaleType(ImageView.ScaleType.CENTER);
-		imageView.setImageResource(R.drawable.checkmark);
-		ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT,
-				Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-		layoutParams.rightMargin = 40;
-		imageView.setLayoutParams(layoutParams);
-		actionBar.setCustomView(imageView);
-	}
+		ImageButton actionBarVisitButton = (ImageButton) findViewById(R.id.visitPerson);
 
-	//	@Override
-	//	public boolean onCreateOptionsMenu(Menu menu) {
-	//		// Inflate the menu; this adds items to the action bar if it is present.
-	//		getMenuInflater().inflate(R.menu.specifics, menu);
-	//		return true;
-	//	}
+		actionBarVisitButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				System.out.println("Visit facebook button was clicked");
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + getIntent().getStringExtra("user_id")));
+				startActivity(intent);
+			}
+		});
+	}
 
 	public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
@@ -153,15 +151,14 @@ public class SpecificsActivity extends CustomActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-	    // Handle item selection
-	    switch (item.getItemId()) 
-	    {
-	        case android.R.id.home:
-	            onBackPressed();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+}

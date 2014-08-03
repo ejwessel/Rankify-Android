@@ -20,8 +20,8 @@
         
          <com.facebook.widget.ProfilePictureView
                     android:id="@+id/profilePicture"
-                    android:layout_height="150dp"
-                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     facebook:preset_size="normal"/>
