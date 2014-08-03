@@ -38,6 +38,8 @@ public class SpecificsActivity extends CustomActivity {
 	private TextView likes;
 	private TextView comments;
 	private ActionBar actionBar;
+	private TextView titleTxtView;
+	private ImageButton actionBarVisitButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +100,11 @@ public class SpecificsActivity extends CustomActivity {
 		statusComments.setText(String.valueOf(getIntent().getIntExtra("statusComments", 0)));
 
 		actionBar = getActionBar();
-		actionBar.setCustomView(R.layout.custom_action_bar);
-		TextView titleTxtView = (TextView) actionBar.getCustomView().findViewById(R.id.actionBar_userName);
+		actionBar.setCustomView(R.layout.custom_action_bar_specific);
+		titleTxtView = (TextView) actionBar.getCustomView().findViewById(R.id.actionBar_userName);
 		titleTxtView.setText(getIntent().getStringExtra("user_name"));
 		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
-		ImageButton actionBarVisitButton = (ImageButton) findViewById(R.id.visitPerson);
+		actionBarVisitButton = (ImageButton) findViewById(R.id.visitPerson);
 
 		actionBarVisitButton.setOnClickListener(new View.OnClickListener() {
 			@Override

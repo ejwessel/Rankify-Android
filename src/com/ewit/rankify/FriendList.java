@@ -6,27 +6,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class FriendList extends CustomActivity {
 
-	ArrayList<String> friendListData = new ArrayList<String>();
+	private ArrayList<String> friendListData = new ArrayList<String>();
+	private ActionBar actionBar;
+	private ListView friendList;
+	private Button shareButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friendlist_activity);
 
-		ListView friendList = (ListView) findViewById(R.id.friendList);
+		friendList = (ListView) findViewById(R.id.friendList);
+		
 		Bundle passedValues = getIntent().getExtras();
 		String stringArray = passedValues.getString("jsonArray");
 
+		actionBar = getActionBar();
+		actionBar.setCustomView(R.layout.custom_action_bar_friendlist);
+		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
+		shareButton = (Button) actionBar.getCustomView().findViewById(R.id.shareButton);
+		
 		try {
 			JSONArray friendData = new JSONArray(stringArray);
 			//place friend data into an array list; every index has a friend with corresponding data
@@ -36,6 +48,15 @@ public class FriendList extends CustomActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+
+		shareButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				System.out.println("Share Button Was Clicked");
+
+			}
+		});
 
 		friendList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -97,18 +118,15 @@ public class FriendList extends CustomActivity {
 	//		return true;
 	//	}
 
-
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-	    // Handle item selection
-	    switch (item.getItemId()) 
-	    {
-	        case android.R.id.home:
-	            onBackPressed();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

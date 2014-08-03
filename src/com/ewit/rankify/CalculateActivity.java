@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,12 +43,17 @@ public class CalculateActivity extends CustomActivity {
 	private String accessToken;
 	private JSONArray friendList;
 	private Boolean hasFriends;
+	private ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calculate_activity);
-
+		
+//		actionBar = getActionBar();
+//		actionBar.setCustomView(R.layout.custom_action_bar_calculate);
+//		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
+		
 		//obtain passed data from previous activity
 		Bundle passedValues = getIntent().getExtras();
 		if (passedValues != null) {
