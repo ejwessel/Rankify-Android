@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
@@ -32,12 +34,13 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 
-public class FriendList extends CustomActivity {
+public class FriendList extends CustomActivity implements SearchView.OnQueryTextListener {
 
 	private ArrayList<String> friendListData = new ArrayList<String>();
 	private ActionBar actionBar;
 	private ListView friendList;
 	private Button shareButton;
+	private SearchView searchView;
 
 	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
 	private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
@@ -57,6 +60,9 @@ public class FriendList extends CustomActivity {
 		actionBar.setCustomView(R.layout.custom_action_bar_friendlist);
 		actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
 		shareButton = (Button) actionBar.getCustomView().findViewById(R.id.shareButton);
+
+		searchView = (SearchView) actionBar.getCustomView().findViewById(R.id.searchView);
+		setupSearchView();
 
 		try {
 			JSONArray friendData = new JSONArray(stringArray);
@@ -240,5 +246,27 @@ public class FriendList extends CustomActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		if (TextUtils.isEmpty(newText)) {
+			friendList.clearTextFilter();
+		} else {
+			friendList.setFilterText(newText.toString());
+			//friendList is a json object, need to override setFilterText or extract from friendListData
+		}
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		return false;
+	}
+
+	private void setupSearchView() {
+		searchView.setIconifiedByDefault(false);
+		searchView.setOnQueryTextListener(this);
+		searchView.setSubmitButtonEnabled(false);
 	}
 }
