@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.fedorvlasov.lazylist.ImageLoader;
 
-public class FriendDataAdapter extends ArrayAdapter<String> {
+public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	// declaring our ArrayList of items
-	private ArrayList<String> objects;
+	private ArrayList<JSONObject> objects;
 	private ImageLoader imageLoader;
 
 	/*
@@ -29,7 +29,7 @@ public class FriendDataAdapter extends ArrayAdapter<String> {
 	 * we care about now is ArrayList<Item> objects, because it is the list of
 	 * objects we want to display.
 	 */
-	public FriendDataAdapter(Context context, int textViewResourceId, ArrayList<String> objects) {
+	public FriendDataAdapter(Context context, int textViewResourceId, ArrayList<JSONObject> objects) {
 		super(context, textViewResourceId, objects);
 		this.objects = objects;
 		imageLoader = new ImageLoader(context);
@@ -59,15 +59,7 @@ public class FriendDataAdapter extends ArrayAdapter<String> {
 		 * 
 		 * Therefore, i refers to the current Item object.
 		 */
-		String individual = objects.get(position);
-		JSONObject userData = null;
-		try {
-			JSONObject data = new JSONObject(individual);
-			String userDataString = data.getString("User");
-			userData = new JSONObject(userDataString);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		JSONObject userData = objects.get(position);
 
 		if (userData != null) {
 

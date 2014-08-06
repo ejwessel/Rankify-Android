@@ -36,7 +36,7 @@ import com.facebook.SessionState;
 
 public class FriendList extends CustomActivity implements SearchView.OnQueryTextListener {
 
-	private ArrayList<String> friendListData = new ArrayList<String>();
+	private ArrayList<JSONObject> friendListData = new ArrayList<JSONObject>();
 	private ActionBar actionBar;
 	private ListView friendList;
 	private Button shareButton;
@@ -66,9 +66,15 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 
 		try {
 			JSONArray friendData = new JSONArray(stringArray);
+			JSONObject friend = null;
 			//place friend data into an array list; every index has a friend with corresponding data
 			for (int i = 0; i < friendData.length(); i++) {
-				friendListData.add(friendData.get(i).toString());
+
+				friend = new JSONObject(friendData.get(i).toString());
+				friend = new JSONObject(friend.get("User").toString());
+				friendListData.add(friend);
+
+				System.out.println(friend);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -108,15 +114,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
 
-				String individual = friendListData.get(position);
-				JSONObject userData = null;
-				try {
-					JSONObject data = new JSONObject(individual);
-					String userDataString = data.getString("User");
-					userData = new JSONObject(userDataString);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				JSONObject userData = friendListData.get(position);
 
 				if (userData != null) {
 					Intent calculateIntent = new Intent(FriendList.this, SpecificsActivity.class);
@@ -181,15 +179,14 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 
 			StringBuilder postString = new StringBuilder();
 			for (int i = 0; i < 10; i++) {
+				String name;
 				try {
-					JSONObject data = new JSONObject(friendListData.get(i));
-					String userDataString = data.getString("User");
-					JSONObject user = new JSONObject(userDataString);
-					postString.append(user.get("name") + "\n");
+					name = friendListData.get(i).getString("name");
+					postString.append(name + "\n");
 				} catch (JSONException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}
 
 			Bundle postParams = new Bundle();
