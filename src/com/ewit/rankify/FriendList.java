@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,7 +73,27 @@ public class FriendList extends CustomActivity {
 			@Override
 			public void onClick(View v) {
 				System.out.println("Share Button Was Clicked");
-				publishStory();
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(FriendList.this);
+				builder.setCancelable(true);
+				builder.setTitle("Post to Facebook");
+				builder.setMessage("This will post the top 10 people to your facebook. Click \"Post\" below to post to your wall!");
+				builder.setInverseBackgroundForced(true);
+				builder.setPositiveButton("Post", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						publishStory();
+						dialog.dismiss();
+					}
+				});
+				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
 			}
 		});
 
@@ -128,6 +150,7 @@ public class FriendList extends CustomActivity {
 		friendList.setAdapter(adapter); //populates list
 	}
 
+	//Shows the publish button only when the user is authenticated:
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 		if (state.isOpened()) {
 			shareButton.setVisibility(View.VISIBLE);
@@ -160,15 +183,15 @@ public class FriendList extends CustomActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 
 			Bundle postParams = new Bundle();
-						postParams.putString("name", "Facebook SDK for Android");
-						postParams.putString("caption", "Build great social apps and get more installs.");
+			postParams.putString("name", "Facebook SDK for Android");
+			postParams.putString("caption", "Build great social apps and get more installs.");
 			//			postParams.putString("description", "The Facebook SDK for Android makes it easier and faster to develop Facebook integrated Android apps.");
-						postParams.putString("link", "https://developers.facebook.com/android");
-//						postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
+			//			postParams.putString("link", "https://developers.facebook.com/android");
+			//						postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
 			postParams.putString("description", postString.toString());
 
 			Request.Callback callback = new Request.Callback() {
@@ -184,7 +207,7 @@ public class FriendList extends CustomActivity {
 					if (error != null) {
 						Toast.makeText(getApplicationContext(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
 					} else {
-						Toast.makeText(getApplicationContext(), "Friend List Posted to Facebook", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "Top 10 Friends published", Toast.LENGTH_LONG).show();
 					}
 				}
 			};
@@ -197,6 +220,7 @@ public class FriendList extends CustomActivity {
 
 	}
 
+	//Used to determine whether or not the user has granted the necessary permissions to publish the story.
 	private boolean isSubsetOf(Collection<String> subset, Collection<String> superset) {
 		for (String string : subset) {
 			if (!superset.contains(string)) {
