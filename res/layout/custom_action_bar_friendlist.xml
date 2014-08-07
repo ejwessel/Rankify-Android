@@ -30,7 +30,7 @@
 	    android:layout_weight=".80"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
-	    android:gravity="center_horizontal"></SearchView>
+	    android:gravity="center_horizontal"/>
 
     <Button
         android:id="@+id/shareButton"
