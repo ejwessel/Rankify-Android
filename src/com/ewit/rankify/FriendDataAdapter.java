@@ -6,9 +6,12 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	private ArrayList<JSONObject> objects;
 	private ArrayList<JSONObject> objectsSearched;
 	private ImageLoader imageLoader;
+	private Context context;
 
 	/*
 	 * here we must override the constructor for ArrayAdapter the only variable
@@ -30,6 +34,7 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	public FriendDataAdapter(Context context, int textViewResourceId, ArrayList<JSONObject> objects) {
 		super(context, textViewResourceId, objects);
 		this.objects = objects;
+		this.context = context;
 		this.objectsSearched = new ArrayList<JSONObject>();
 		this.objectsSearched.addAll(this.objects);
 		imageLoader = new ImageLoader(context);
@@ -39,40 +44,24 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	 * we are overriding the getView method here - this is what defines how each
 	 * list item will look.
 	 */
-	public View getView(int position, View convertView, ViewGroup parent) {
-
-		// assign the view we are converting to a local variable
-		View v = convertView;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		View listViewItem = convertView;
 
 		// first check to see if the view is null. if so, we have to inflate it.
 		// to inflate it basically means to render, or show, the view.
-		if (v == null) {
+		if (listViewItem == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = inflater.inflate(R.layout.list_row, parent, false);
+			listViewItem = inflater.inflate(R.layout.list_row, parent, false);
 		}
 
-		/*
-		 * Recall that the variable position is sent in as an argument to this
-		 * method. The variable simply refers to the position of the current
-		 * object in the list. (The ArrayAdapter iterates through the list we
-		 * sent it)
-		 * 
-		 * Therefore, i refers to the current Item object.
-		 */
-		System.out.println("Friends: " + objectsSearched.size());
-		JSONObject userData = objectsSearched.get(position); //BUG IS HERE!	
+		final JSONObject userData = objectsSearched.get(position);
 
 		if (userData != null) {
 
-			// This is how you obtain a reference to the TextViews.
-			// These TextViews are created in the XML files we defined.
+			ImageView userImage = (ImageView) listViewItem.findViewById(R.id.user_image);
+			TextView userName = (TextView) listViewItem.findViewById(R.id.user_name);
+			TextView userRank = (TextView) listViewItem.findViewById(R.id.user_rank);
 
-			ImageView userImage = (ImageView) v.findViewById(R.id.user_image);
-			TextView userName = (TextView) v.findViewById(R.id.user_name);
-			TextView userRank = (TextView) v.findViewById(R.id.user_rank);
-
-			// check to see if each individual textview is null.
-			// if not, assign some text!
 			try {
 				if (userImage == null) {
 					userImage.setBackground(null);
@@ -92,21 +81,53 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 					int totalComments = userData.getInt("totalComments");
 					userRank.setText(String.valueOf(totalLikes + totalComments));
 				}
+
+				listViewItem.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						try {
+							System.out.println("object at position: " + position + "was clicked");
+							System.out.println("person " + userData.getString("name") + " was clicked");
+
+							Intent calculateIntent = new Intent(context, SpecificsActivity.class);
+							calculateIntent.putExtra("user_id", userData.getString("user_id"));
+							calculateIntent.putExtra("user_name", userData.getString("name"));
+							calculateIntent.putExtra("userPicture", userData.getString("profilePictureLarge"));
+							calculateIntent.putExtra("rankPosition", userData.getString("rank"));
+							calculateIntent.putExtra("totalLikes", userData.getInt("totalLikes"));
+							calculateIntent.putExtra("albumLikes", userData.getInt("albumLikes"));
+							calculateIntent.putExtra("photoLikes", userData.getInt("photoLikes"));
+							calculateIntent.putExtra("videoLikes", userData.getInt("videoLikes"));
+							calculateIntent.putExtra("statusLikes", userData.getInt("statusLikes"));
+							calculateIntent.putExtra("totalComments", userData.getInt("totalComments"));
+							calculateIntent.putExtra("albumComments", userData.getInt("albumComments"));
+							calculateIntent.putExtra("photoComments", userData.getInt("photoComments"));
+							calculateIntent.putExtra("videoComments", userData.getInt("videoComments"));
+							calculateIntent.putExtra("statusComments", userData.getInt("statusComments"));
+
+							context.startActivity(calculateIntent);
+							((Activity) context).overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+		
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 
 		// the view must be returned to our activity
-		return v;
-
+		return listViewItem;
 	}
 
 	@Override
-	public int getCount(){
+	public int getCount() {
 		return objectsSearched.size();
 	}
-	
+
 	public void filter(String charText) {
 
 		charText = charText.toLowerCase(Locale.getDefault());

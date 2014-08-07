@@ -14,7 +14,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ import com.facebook.SessionState;
 public class FriendList extends CustomActivity implements SearchView.OnQueryTextListener {
 
 	private ArrayList<JSONObject> friendListData = new ArrayList<JSONObject>();
-	private ArrayList<String> friendListName = new ArrayList<String>();
 	private ActionBar actionBar;
 	private ListView friendList;
 	private Button shareButton;
@@ -75,7 +73,6 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 				friend = new JSONObject(friendData.get(i).toString());
 				friend = new JSONObject(friend.get("User").toString());
 				friendListData.add(friend);
-				friendListName.add(friend.getString("name"));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -107,41 +104,6 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 				});
 				AlertDialog alert = builder.create();
 				alert.show();
-			}
-		});
-
-		friendList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
-				JSONObject userData = friendListData.get(position);
-
-				if (userData != null) {
-					Intent calculateIntent = new Intent(FriendList.this, SpecificsActivity.class);
-					try {
-						calculateIntent.putExtra("user_id", userData.getString("user_id"));
-						calculateIntent.putExtra("user_name", userData.getString("name"));
-						calculateIntent.putExtra("userPicture", userData.getString("profilePictureLarge"));
-						calculateIntent.putExtra("rankPosition", userData.getString("rank"));
-						calculateIntent.putExtra("totalLikes", userData.getInt("totalLikes"));
-						calculateIntent.putExtra("albumLikes", userData.getInt("albumLikes"));
-						calculateIntent.putExtra("photoLikes", userData.getInt("photoLikes"));
-						calculateIntent.putExtra("videoLikes", userData.getInt("videoLikes"));
-						calculateIntent.putExtra("statusLikes", userData.getInt("statusLikes"));
-						calculateIntent.putExtra("totalComments", userData.getInt("totalComments"));
-						calculateIntent.putExtra("albumComments", userData.getInt("albumComments"));
-						calculateIntent.putExtra("photoComments", userData.getInt("photoComments"));
-						calculateIntent.putExtra("videoComments", userData.getInt("videoComments"));
-						calculateIntent.putExtra("statusComments", userData.getInt("statusComments"));
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-
-					startActivity(calculateIntent);
-					overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
-				}
-
 			}
 		});
 		//An adapter acts as a bridge between the view and the data for a view.
