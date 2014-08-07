@@ -37,10 +37,12 @@ import com.facebook.SessionState;
 public class FriendList extends CustomActivity implements SearchView.OnQueryTextListener {
 
 	private ArrayList<JSONObject> friendListData = new ArrayList<JSONObject>();
+	private ArrayList<String> friendListName = new ArrayList<String>();
 	private ActionBar actionBar;
 	private ListView friendList;
 	private Button shareButton;
 	private SearchView searchView;
+	private FriendDataAdapter adapter;
 
 	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
 	private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
@@ -73,8 +75,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 				friend = new JSONObject(friendData.get(i).toString());
 				friend = new JSONObject(friend.get("User").toString());
 				friendListData.add(friend);
-
-				System.out.println(friend);
+				friendListName.add(friend.getString("name"));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -150,7 +151,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 		//context = this
 		//resource will be the XML file you design
 		//data will be the friendListData passed in
-		FriendDataAdapter adapter = new FriendDataAdapter(this, android.R.layout.simple_list_item_1, friendListData);
+		adapter = new FriendDataAdapter(this, android.R.layout.simple_list_item_1, friendListData);
 		friendList.setAdapter(adapter); //populates list
 	}
 
@@ -247,12 +248,8 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-		if (TextUtils.isEmpty(newText)) {
-			friendList.clearTextFilter();
-		} else {
-			friendList.setFilterText(newText.toString());
-			//friendList is a json object, need to override setFilterText or extract from friendListData
-		}
+		System.out.println("Search Text Changed");
+		adapter.filter(newText);
 		return true;
 	}
 

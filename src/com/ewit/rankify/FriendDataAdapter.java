@@ -1,15 +1,12 @@
 package com.ewit.rankify;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,7 @@ import com.fedorvlasov.lazylist.ImageLoader;
 public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	// declaring our ArrayList of items
 	private ArrayList<JSONObject> objects;
+	private ArrayList<JSONObject> objectsSearched;
 	private ImageLoader imageLoader;
 
 	/*
@@ -32,6 +30,8 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 	public FriendDataAdapter(Context context, int textViewResourceId, ArrayList<JSONObject> objects) {
 		super(context, textViewResourceId, objects);
 		this.objects = objects;
+		this.objectsSearched = new ArrayList<JSONObject>();
+		this.objectsSearched.addAll(this.objects);
 		imageLoader = new ImageLoader(context);
 	}
 
@@ -48,7 +48,7 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 		// to inflate it basically means to render, or show, the view.
 		if (v == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = inflater.inflate(R.layout.list_row, null);
+			v = inflater.inflate(R.layout.list_row, parent, false);
 		}
 
 		/*
@@ -59,7 +59,8 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 		 * 
 		 * Therefore, i refers to the current Item object.
 		 */
-		JSONObject userData = objects.get(position);
+		System.out.println("Friends: " + objectsSearched.size());
+		JSONObject userData = objectsSearched.get(position); //BUG IS HERE!	
 
 		if (userData != null) {
 
@@ -72,42 +73,60 @@ public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
 
 			// check to see if each individual textview is null.
 			// if not, assign some text!
-			if (userImage == null) {
-				userImage.setBackground(null);				
-			} else {
-				// show The Image
-				try {
+			try {
+				if (userImage == null) {
+					userImage.setBackground(null);
+				} else {
 					String profilePictureSmall = userData.getString("profilePictureSmall");
 					imageLoader.DisplayImage(profilePictureSmall, userImage);
-				} catch (JSONException e) {
-					e.printStackTrace();
 				}
-			}
-			if (userName == null) {
-				userName.setText("NO NAME");
-			} else {
-				try {
+				if (userName == null) {
+					userName.setText("NO NAME");
+				} else {
 					userName.setText(userData.getString("name"));
-				} catch (JSONException e) {
-					e.printStackTrace();
 				}
-			}
-			if (userRank == null) {
-				userRank.setText("NO RANK");
-			} else {
-				try {
+				if (userRank == null) {
+					userRank.setText("NO RANK");
+				} else {
 					int totalLikes = userData.getInt("totalLikes");
 					int totalComments = userData.getInt("totalComments");
 					userRank.setText(String.valueOf(totalLikes + totalComments));
-
-				} catch (JSONException e) {
-					e.printStackTrace();
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		}
 
 		// the view must be returned to our activity
 		return v;
 
+	}
+
+	@Override
+	public int getCount(){
+		return objectsSearched.size();
+	}
+	
+	public void filter(String charText) {
+
+		charText = charText.toLowerCase(Locale.getDefault());
+		//		objectsSearched.clear();
+		objectsSearched = new ArrayList<JSONObject>();
+		if (charText.length() == 0) {
+			objectsSearched.addAll(objects);
+		} else {
+			for (JSONObject person : objects) {
+				try {
+					if (person.get("name").toString().toLowerCase(Locale.getDefault()).contains(charText)) {
+						objectsSearched.add(person);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		System.out.println("filtered");
+		notifyDataSetChanged();
 	}
 }
