@@ -142,7 +142,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 				String name;
 				try {
 					name = friendListData.get(i).getString("name");
-					postString.append(name + "\n");
+					postString.append(name + "<\br>");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,11 +150,9 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 			}
 
 			Bundle postParams = new Bundle();
-			postParams.putString("name", "Facebook SDK for Android");
-			postParams.putString("caption", "Build great social apps and get more installs.");
-			//			postParams.putString("description", "The Facebook SDK for Android makes it easier and faster to develop Facebook integrated Android apps.");
-			//			postParams.putString("link", "https://developers.facebook.com/android");
-			//						postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
+			postParams.putString("name", "Rankify");
+			postParams.putString("caption", "Top 10 Friends:");
+			postParams.putString("link", "www.rankify.com");
 			postParams.putString("description", postString.toString());
 
 			Request.Callback callback = new Request.Callback() {
