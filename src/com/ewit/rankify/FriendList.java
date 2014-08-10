@@ -39,7 +39,6 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 	private Button shareButton;
 	private SearchView searchView;
 	private FriendDataAdapter adapter;
-	private String oldPost = "";
 
 	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
 	private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
@@ -139,76 +138,40 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 				return;
 			}
 
-			StringBuilder postString = new StringBuilder();
-			for (int i = 0; i < 9; i++) {
-				String name;
-				try {
-					name = friendListData.get(i).getString("name");
-					postString.append((i + 1) + ". " + name + ", ");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			//append the last person
-			String name;
-			try {
-				name = friendListData.get(9).getString("name");
-				postString.append(10 + ". " + name);
-			} catch (JSONException e1) {
-				e1.printStackTrace();
-			}
+			String topFriends = getTopFriends();
 
 			Bundle postParams = new Bundle();
 			postParams.putString("name", "Rankify");
 			postParams.putString("caption", "Top 10 Friends:");
 			postParams.putString("link", "http://e-wit.co.uk/rankifyapp/index.php");
 			postParams.putString("picture", null);
-			postParams.putString("description", postString.toString());
+			postParams.putString("description", topFriends);
 
-			if (oldPost.equals(postString.toString())) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(FriendList.this);
-				builder.setCancelable(true);
-				builder.setTitle("Unable to Post to Facebook");
-				builder.setMessage("Facebook disallows posting of redundant content");
-				builder.setInverseBackgroundForced(true);
-				builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
+			Request.Callback callback = new Request.Callback() {
+				public void onCompleted(Response response) {
+					JSONObject graphResponse = response.getGraphObject().getInnerJSONObject();
+					String postId = null;
+					try {
+						postId = graphResponse.getString("id");
+					} catch (JSONException e) {
+						Log.i("TAG", "JSON error " + e.getMessage());
 					}
-				});
-				AlertDialog alert = builder.create();
-				alert.show();
-			} else {
-				oldPost = postString.toString(); //set the old post to what we're posting
-
-				Request.Callback callback = new Request.Callback() {
-					public void onCompleted(Response response) {
-						JSONObject graphResponse = response.getGraphObject().getInnerJSONObject();
-						String postId = null;
-						try {
-							postId = graphResponse.getString("id");
-						} catch (JSONException e) {
-							Log.i("TAG", "JSON error " + e.getMessage());
-						}
-						FacebookRequestError error = response.getError();
-						if (error != null) {
-							Toast toast = Toast.makeText(getApplicationContext(), error.getErrorMessage(), Toast.LENGTH_SHORT);
-							toast.setGravity(Gravity.CENTER, 0, 0);
-							toast.show();
-						} else {
-							Toast toast = Toast.makeText(getApplicationContext(), "Top 10 Friends published", Toast.LENGTH_LONG);
-							toast.setGravity(Gravity.CENTER, 0, 0);
-							toast.show();
-						}
+					FacebookRequestError error = response.getError();
+					if (error != null) {
+						Toast toast = Toast.makeText(getApplicationContext(), error.getErrorMessage(), Toast.LENGTH_SHORT);
+						toast.setGravity(Gravity.CENTER, 0, 0);
+						toast.show();
+					} else {
+						Toast toast = Toast.makeText(getApplicationContext(), "Top 10 Friends published", Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.CENTER, 0, 0);
+						toast.show();
 					}
-				};
+				}
+			};
 
-				Request request = new Request(session, "me/feed", postParams, HttpMethod.POST, callback);
-				RequestAsyncTask task = new RequestAsyncTask(request);
-				task.execute();
-			}
+			Request request = new Request(session, "me/feed", postParams, HttpMethod.POST, callback);
+			RequestAsyncTask task = new RequestAsyncTask(request);
+			task.execute();
 		}
 	}
 
@@ -244,6 +207,35 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 	@Override
 	public boolean onQueryTextSubmit(String arg0) {
 		return false;
+	}
+
+	public String getTopFriends() {
+		StringBuilder postString = new StringBuilder();
+		if (friendListData.size() > 0) {
+			int count = 10;
+			if (friendListData.size() < count) {
+				count = friendListData.size();
+			}
+
+			for (int i = 0; i < count - 1; i++) {
+				String name;
+				try {
+					name = friendListData.get(i).getString("name");
+					postString.append((i + 1) + "." + name + ", ");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			//append the last person
+			try {
+				String name = friendListData.get(count - 1).getString("name");
+				postString.append(count + "." + name);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return postString.toString();
 	}
 
 	private void setupSearchView() {
