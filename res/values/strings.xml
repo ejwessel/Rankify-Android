@@ -35,4 +35,7 @@
 	<string name="title_likes">LIKES</string>
 	<string name="title_comments">COMMENTS</string>
     
+	<string name="ad_unit_login">ca-app-pub-5075314472759088/6231073653</string>
+	<string name="ad_unit_compute">ca-app-pub-5075314472759088/7707806854</string>
+	<string name="ad_unit_specifics">ca-app-pub-5075314472759088/9184540056</string>
 </resources>

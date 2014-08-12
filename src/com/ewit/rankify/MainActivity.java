@@ -20,12 +20,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends Activity {
 
@@ -40,11 +44,26 @@ public class MainActivity extends Activity {
 	private ProfilePictureView profilePictureView;
 	private Session session;
 	private String hasFriends;
+	private AdView adBanner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+//		TelephonyManager teleManager =(TelephonyManager)getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+//		String device_id=teleManager.getDeviceId();
+//		System.out.println("Device ID"+device_id);
+		
+		adBanner = new AdView(this);
+		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdUnitId(getString(R.string.ad_unit_login));
+		LinearLayout layout = (LinearLayout) findViewById(R.layout.activity_main);
+		layout.addView(adBanner);
+		AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+        .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+        .build();
 
 		aboutButton = (Button) findViewById(R.id.aboutButton);
 		aboutButton.setOnClickListener(new View.OnClickListener() {
