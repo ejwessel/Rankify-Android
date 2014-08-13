@@ -1,6 +1,7 @@
 package com.fedorvlasov.lazylist;
 
 import java.io.File;
+
 import android.content.Context;
 
 public class FileCache {

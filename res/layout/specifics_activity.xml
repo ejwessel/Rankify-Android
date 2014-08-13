@@ -1,277 +1,291 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFF"
-    android:orientation="vertical" >
-    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:background="#FFF"
         android:orientation="vertical" >
 
-        <!-- User Picture and Rank Portion -->
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:background="#FFF"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/userPicture"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:padding="10dp" />
+            <!-- User Picture and Rank Portion -->
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="horizontal" >
 
-                <TextView
-                    android:id="@+id/rank"
+                <ImageView
+                    android:id="@+id/userPicture"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="50sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/blueButtonColor"
-                    android:text="@string/title_rank" />
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/rankPosition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="40sp"
-                    android:text="000" />
+                    <TextView
+                        android:id="@+id/rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_rank"
+                        android:textColor="@color/blueButtonColor"
+                        android:textSize="50sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="50sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/blueButtonColor"
-                    android:text="@string/title_total" />
+                    <TextView
+                        android:id="@+id/rankPosition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:textSize="40sp" />
 
-                <TextView
-                    android:id="@+id/rankScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="40sp"
-                    android:text="000" />
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_total"
+                        android:textColor="@color/blueButtonColor"
+                        android:textSize="50sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rankScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:textSize="40sp" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Likes Portion -->
+            <!-- Likes Portion -->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/likes"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft ="5dp"
-                android:paddingRight="5dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:textColor="@color/blueButtonColor"
-                android:text="LIKES" />
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/totalLikes"
+                <TextView
+                    android:id="@+id/likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="LIKES"
+                    android:textColor="@color/blueButtonColor"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalLikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="000"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/albums_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/albumLikes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/photos_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/photoLikes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/videos_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/videoLikes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/statuses_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/statusLikes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <!-- Comments Portion -->
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:textSize="30sp"
-                android:text="000" />
-        </LinearLayout>
+                android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="COMMENTS"
+                    android:textColor="@color/blueButtonColor"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
 
-            <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/albums_icon"/>
-            
-            <TextView
-                android:id="@+id/albumLikes"
-               android:layout_width="0dp"
-                android:layout_weight=".5"
+                <TextView
+                    android:id="@+id/totalComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
 
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/photos_icon"/>
-            
-            <TextView
-                android:id="@+id/photoLikes"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/albums_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/albumComments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/photos_icon"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/photoComments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
-        </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/videos_icon"
+                    android:padding="5dp" />
 
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/videos_icon"/>
-            
-            <TextView
-                android:id="@+id/videoLikes"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
+                <TextView
+                    android:id="@+id/videoComments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
 
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/statuses_icon"/>
-             
-            <TextView
-                android:id="@+id/statusLikes"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/statuses_icon"
+                    android:padding="5dp" />
 
-        <!-- Comments Portion -->
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:textColor="@color/blueButtonColor"
-                android:text="COMMENTS" />
-
-            <TextView
-                android:id="@+id/totalComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="30sp"
-                android:text="000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/albums_icon"/>
-            
-            <TextView
-                android:id="@+id/albumComments"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
-
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/photos_icon"/>
-             
-            <TextView
-                android:id="@+id/photoComments"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="20sp"
-                android:text="000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/videos_icon"/>
-            
-            <TextView
-                android:id="@+id/videoComments"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:text="000"
-                android:textSize="20sp"
-                android:padding="5dp"  />
-
-             <ImageView 
-                android:padding="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/statuses_icon"/>
-            
-            <TextView
-                android:id="@+id/statusComments"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:text="000"
-                android:textSize="20sp"
-                android:padding="5dp"  />
+                <TextView
+                    android:id="@+id/statusComments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:padding="5dp"
+                    android:text="000"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/bannerAd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</RelativeLayout>

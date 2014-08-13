@@ -38,4 +38,6 @@
 	<string name="ad_unit_login">ca-app-pub-5075314472759088/6231073653</string>
 	<string name="ad_unit_compute">ca-app-pub-5075314472759088/7707806854</string>
 	<string name="ad_unit_specifics">ca-app-pub-5075314472759088/9184540056</string>
+	
+	<string name="test_device_1">3EC4243996D935975A81EFDA69EB0C3A</string>
 </resources>

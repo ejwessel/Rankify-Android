@@ -16,7 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class SpecificsActivity extends CustomActivity {
 
@@ -40,12 +45,15 @@ public class SpecificsActivity extends CustomActivity {
 	private ActionBar actionBar;
 	private TextView titleTxtView;
 	private ImageButton actionBarVisitButton;
+	private AdView adBanner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.specifics_activity);
 
+		setupBannerAd();
+		
 		Typeface type = Typeface.createFromAsset(getAssets(), "fonts/futura-condensed-extrabold.ttf");
 
 		rank = (TextView) findViewById(R.id.rank);
@@ -162,5 +170,54 @@ public class SpecificsActivity extends CustomActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void setupBannerAd() {
+		adBanner = new AdView(this);
+		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdUnitId(getString(R.string.ad_unit_specifics));
+
+		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
+		layout.addView(adBanner);
+
+		if(MainActivity.testAds){
+			AdRequest adRequest = new AdRequest.Builder()
+			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+			.addTestDevice(getString(R.string.test_device_1))
+			//can add other test devices here...
+			.build();
+			adBanner.loadAd(adRequest);
+		}
+		else{
+			AdRequest adRequest = new AdRequest.Builder()
+			.build();
+			adBanner.loadAd(adRequest);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adBanner != null) {
+			adBanner.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adBanner != null) {
+			adBanner.pause();
+		}
+		super.onPause();
+	}
+
+	/** Called before the activity is destroyed. */
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adBanner != null) {
+			adBanner.destroy();
+		}
+		super.onDestroy();
 	}
 }

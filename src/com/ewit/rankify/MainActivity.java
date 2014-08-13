@@ -15,9 +15,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,6 +36,7 @@ import com.google.android.gms.ads.AdView;
 public class MainActivity extends Activity {
 
 	private static final List<String> PERMISSIONS = Arrays.asList("user_videos", "user_status", "user_photos");
+	public static final Boolean testAds = true;
 
 	private Button aboutButton;
 	private Button pullDataButton;
@@ -51,19 +54,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-//		TelephonyManager teleManager =(TelephonyManager)getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
-//		String device_id=teleManager.getDeviceId();
-//		System.out.println("Device ID"+device_id);
-		
-		adBanner = new AdView(this);
-		adBanner.setAdSize(AdSize.BANNER);
-		adBanner.setAdUnitId(getString(R.string.ad_unit_login));
-		LinearLayout layout = (LinearLayout) findViewById(R.layout.activity_main);
-		layout.addView(adBanner);
-		AdRequest adRequest = new AdRequest.Builder()
-        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-        .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
-        .build();
+		setupBannerAd();
 
 		aboutButton = (Button) findViewById(R.id.aboutButton);
 		aboutButton.setOnClickListener(new View.OnClickListener() {
@@ -199,5 +190,54 @@ public class MainActivity extends Activity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	}
+
+	private void setupBannerAd() {
+		adBanner = new AdView(this);
+		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdUnitId(getString(R.string.ad_unit_login));
+
+		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
+		layout.addView(adBanner);
+
+		if(testAds){
+			AdRequest adRequest = new AdRequest.Builder()
+			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+			.addTestDevice(getString(R.string.test_device_1))
+			//can add other test devices here...
+			.build();
+			adBanner.loadAd(adRequest);
+		}
+		else{
+			AdRequest adRequest = new AdRequest.Builder()
+			.build();
+			adBanner.loadAd(adRequest);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adBanner != null) {
+			adBanner.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adBanner != null) {
+			adBanner.pause();
+		}
+		super.onPause();
+	}
+
+	/** Called before the activity is destroyed. */
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adBanner != null) {
+			adBanner.destroy();
+		}
+		super.onDestroy();
 	}
 }

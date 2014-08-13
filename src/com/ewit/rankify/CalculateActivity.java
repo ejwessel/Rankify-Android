@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class CalculateActivity extends CustomActivity {
 
@@ -42,12 +46,15 @@ public class CalculateActivity extends CustomActivity {
 	private String userID;
 	private String accessToken;
 	private JSONArray friendList;
+	private AdView adBanner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calculate_activity);
-		
+
+		setupBannerAd();
+
 		//obtain passed data from previous activity
 		Bundle passedValues = getIntent().getExtras();
 		if (passedValues != null) {
@@ -70,8 +77,9 @@ public class CalculateActivity extends CustomActivity {
 		retrievingDataCheck = (ImageView) findViewById(R.id.retrievingDataCheck);
 
 		refreshButton = (Button) findViewById(R.id.refreshDataButton);
-		continueButton = (Button) findViewById(R.id.continueButton);refreshButton.setEnabled(false);
-	
+		continueButton = (Button) findViewById(R.id.continueButton);
+		refreshButton.setEnabled(false);
+
 		refreshButton.setEnabled(false);
 		refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
 		refreshButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
@@ -101,7 +109,7 @@ public class CalculateActivity extends CustomActivity {
 
 		if (!passedValues.getString("hasFriends").equals("1")) {
 			compute();
-		} else {	
+		} else {
 			statusFriends.setVisibility(View.INVISIBLE);
 			statusAlbums.setVisibility(View.INVISIBLE);
 			statusVideos.setVisibility(View.INVISIBLE);
@@ -115,7 +123,7 @@ public class CalculateActivity extends CustomActivity {
 			gatheringStatusesCheck.setVisibility(View.VISIBLE);
 			gatheringPhotosCheck.setVisibility(View.VISIBLE);
 			retrievingDataCheck.setVisibility(View.VISIBLE);
-			
+
 			new GetFriendData().execute(userID);
 		}
 	}
@@ -536,18 +544,61 @@ public class CalculateActivity extends CustomActivity {
 		}
 		return out.toString();
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-	    // Handle item selection
-	    switch (item.getItemId()) 
-	    {
-	        case android.R.id.home:
-	            onBackPressed();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void setupBannerAd() {
+		adBanner = new AdView(this);
+		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdUnitId(getString(R.string.ad_unit_compute));
+
+		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
+		layout.addView(adBanner);
+
+		if (MainActivity.testAds) {
+			AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(getString(R.string.test_device_1))
+			//can add other test devices here...
+					.build();
+			adBanner.loadAd(adRequest);
+		} else {
+			AdRequest adRequest = new AdRequest.Builder().build();
+			adBanner.loadAd(adRequest);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adBanner != null) {
+			adBanner.resume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (adBanner != null) {
+			adBanner.pause();
+		}
+		super.onPause();
+	}
+
+	/** Called before the activity is destroyed. */
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adBanner != null) {
+			adBanner.destroy();
+		}
+		super.onDestroy();
 	}
 }
