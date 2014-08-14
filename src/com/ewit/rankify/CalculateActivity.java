@@ -78,7 +78,6 @@ public class CalculateActivity extends CustomActivity {
 
 		refreshButton = (Button) findViewById(R.id.refreshDataButton);
 		continueButton = (Button) findViewById(R.id.continueButton);
-		refreshButton.setEnabled(false);
 
 		refreshButton.setEnabled(false);
 		refreshButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));

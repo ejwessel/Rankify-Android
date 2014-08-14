@@ -60,10 +60,15 @@ public class MainActivity extends Activity {
 		pullDataButton = (Button) findViewById(R.id.pullDataButton);
 		loginButton = (LoginButton) findViewById(R.id.login_button);
 
+		//must initialize these so that it doesn't crash.
+		hasFriends = "";
+		userID = "";
+		accessToken = "";
+		
 		pullDataButton.setEnabled(false);
 		pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
 		pullDataButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
-		
+
 		aboutButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -74,14 +79,17 @@ public class MainActivity extends Activity {
 		pullDataButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				//go to pull data activity
 
-				Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
-				calculateIntent.putExtra("userID", userID);
-				calculateIntent.putExtra("accessToken", accessToken);
-				calculateIntent.putExtra("hasFriends", hasFriends);
-				startActivity(calculateIntent);
-				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+				if (!(userID.equals("") || accessToken.equals("") || hasFriends.equals(""))) {
+					//go to pull data activity
+
+					Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
+					calculateIntent.putExtra("userID", userID);
+					calculateIntent.putExtra("accessToken", accessToken);
+					calculateIntent.putExtra("hasFriends", hasFriends);
+					startActivity(calculateIntent);
+					overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+				}
 			}
 		});
 
@@ -197,17 +205,12 @@ public class MainActivity extends Activity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
 		layout.addView(adBanner);
 
-		if(testAds){
-			AdRequest adRequest = new AdRequest.Builder()
-			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-			.addTestDevice(getString(R.string.test_device_1))
-			.addTestDevice(getString(R.string.test_device_2))
-			.build();
+		if (testAds) {
+			AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(getString(R.string.test_device_1))
+					.addTestDevice(getString(R.string.test_device_2)).build();
 			adBanner.loadAd(adRequest);
-		}
-		else{
-			AdRequest adRequest = new AdRequest.Builder()
-			.build();
+		} else {
+			AdRequest adRequest = new AdRequest.Builder().build();
 			adBanner.loadAd(adRequest);
 		}
 	}
