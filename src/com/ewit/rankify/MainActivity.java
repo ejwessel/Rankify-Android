@@ -15,11 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -57,6 +55,15 @@ public class MainActivity extends Activity {
 		setupBannerAd();
 
 		aboutButton = (Button) findViewById(R.id.aboutButton);
+		usersName = (TextView) findViewById(R.id.usersName);
+		profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
+		pullDataButton = (Button) findViewById(R.id.pullDataButton);
+		loginButton = (LoginButton) findViewById(R.id.login_button);
+
+		pullDataButton.setEnabled(false);
+		pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
+		pullDataButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
+		
 		aboutButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -64,15 +71,6 @@ public class MainActivity extends Activity {
 				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
 			}
 		});
-
-		usersName = (TextView) findViewById(R.id.usersName);
-		//need to set picture to icon
-		profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
-
-		pullDataButton = (Button) findViewById(R.id.pullDataButton);
-		pullDataButton.setEnabled(false);
-		pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
-		pullDataButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
 		pullDataButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -87,7 +85,6 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		loginButton = (LoginButton) findViewById(R.id.login_button);
 		loginButton.setReadPermissions(PERMISSIONS);
 		loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
 			@Override
