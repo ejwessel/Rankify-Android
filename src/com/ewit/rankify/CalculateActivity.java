@@ -559,16 +559,18 @@ public class CalculateActivity extends CustomActivity {
 
 	private void setupBannerAd() {
 		adBanner = new AdView(this);
-		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdSize(AdSize.SMART_BANNER);
 		adBanner.setAdUnitId(getString(R.string.ad_unit_compute));
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
 		layout.addView(adBanner);
 
 		if (MainActivity.testAds) {
-			AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(getString(R.string.test_device_1))
-			//can add other test devices here...
-					.build();
+			AdRequest adRequest = new AdRequest.Builder()
+			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+			.addTestDevice(getString(R.string.test_device_1))
+			.addTestDevice(getString(R.string.test_device_2))
+			.build();
 			adBanner.loadAd(adRequest);
 		} else {
 			AdRequest adRequest = new AdRequest.Builder().build();

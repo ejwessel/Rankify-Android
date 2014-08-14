@@ -194,7 +194,7 @@ public class MainActivity extends Activity {
 
 	private void setupBannerAd() {
 		adBanner = new AdView(this);
-		adBanner.setAdSize(AdSize.BANNER);
+		adBanner.setAdSize(AdSize.SMART_BANNER);
 		adBanner.setAdUnitId(getString(R.string.ad_unit_login));
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
@@ -204,7 +204,7 @@ public class MainActivity extends Activity {
 			AdRequest adRequest = new AdRequest.Builder()
 			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 			.addTestDevice(getString(R.string.test_device_1))
-			//can add other test devices here...
+			.addTestDevice(getString(R.string.test_device_2))
 			.build();
 			adBanner.loadAd(adRequest);
 		}
