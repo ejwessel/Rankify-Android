@@ -25,7 +25,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.Session;
-import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
@@ -97,7 +96,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-
+		
 		loginButton.setReadPermissions(PERMISSIONS);
 		loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
 			@Override
