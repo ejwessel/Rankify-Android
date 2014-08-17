@@ -25,13 +25,26 @@
 		        android:src="@drawable/app_icon"/>
             -->
 
-            <com.facebook.widget.ProfilePictureView
-                android:id="@+id/profilePicture"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                facebook:preset_size="normal" />
+                android:layout_gravity="center_horizontal" >
+
+                <com.facebook.widget.ProfilePictureView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    facebook:preset_size="normal" />
+
+                <ProgressBar
+                    android:id="@+id/userLogin"
+                    style="?android:attr/progressBarStyleLargeInverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
             <!-- android:foreground="@drawable/app_icon" -->
         </LinearLayout>
 
@@ -116,9 +129,9 @@
         android:id="@+id/bannerAd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom" 
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="vertical" >
     </LinearLayout>
 
 </RelativeLayout>

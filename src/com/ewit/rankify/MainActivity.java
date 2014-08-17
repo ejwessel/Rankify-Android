@@ -21,9 +21,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.Session;
+import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
@@ -46,6 +48,7 @@ public class MainActivity extends Activity {
 	private Session session;
 	private String hasFriends;
 	private AdView adBanner;
+	private ProgressBar loginProgress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +62,14 @@ public class MainActivity extends Activity {
 		profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
 		pullDataButton = (Button) findViewById(R.id.pullDataButton);
 		loginButton = (LoginButton) findViewById(R.id.login_button);
+		loginProgress = (ProgressBar) findViewById(R.id.userLogin);
+		loginProgress.setVisibility(View.INVISIBLE);
 
 		//must initialize these so that it doesn't crash.
 		hasFriends = "";
 		userID = "";
 		accessToken = "";
-		
+
 		pullDataButton.setEnabled(false);
 		pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_gray));
 		pullDataButton.setTextColor(getResources().getColor(R.color.grayButtonColor));
@@ -98,9 +103,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onUserInfoFetched(GraphUser user) {
 				//when the user is logging in
+
 				if (user != null) {
 					//gather user info after successful login
 					userID = user.getId();
+					loginProgress.setVisibility(View.VISIBLE); //this should be shown when we're getting info from facebook, not our database
 					new GetFriendData().execute(userID); // as soon as we get user id, immediately check if they're in our database
 					usersName.setText(user.getName());
 					session = Session.getActiveSession();
@@ -168,6 +175,7 @@ public class MainActivity extends Activity {
 				System.out.println("GetFriendData Finished");
 
 				//set visual changes only after we get response from server
+				loginProgress.setVisibility(View.INVISIBLE);
 				profilePictureView.setProfileId(userID);
 				pullDataButton.setEnabled(true);
 				pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_bluebackground));
