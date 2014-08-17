@@ -143,7 +143,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 			Bundle postParams = new Bundle();
 			postParams.putString("name", "Rankify");
 			postParams.putString("caption", "Top 10 Friends:");
-			postParams.putString("link", "http://e-wit.co.uk/rankifyapp/index.html");
+			postParams.putString("link", getString(R.string.rankify_website));
 			postParams.putString("picture", null);
 			postParams.putString("description", topFriends);
 //			postParams.putString("message", "TESTING\nTESTING");		//this fucking works! Facebook doesn't tell you this...
