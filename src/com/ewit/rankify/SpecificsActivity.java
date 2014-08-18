@@ -54,7 +54,7 @@ public class SpecificsActivity extends CustomActivity {
 
 		setupBannerAd();
 		
-		Typeface type = Typeface.createFromAsset(getAssets(), "fonts/futura-condensed-extrabold.ttf");
+		Typeface type = Typeface.createFromAsset(getAssets(), getString(R.string.futura_condensed_extrabold));
 
 		rank = (TextView) findViewById(R.id.rank);
 		total = (TextView) findViewById(R.id.total);
@@ -180,7 +180,7 @@ public class SpecificsActivity extends CustomActivity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
 		layout.addView(adBanner);
 
-		if(MainActivity.testAds){
+		if(MainActivity.enableAds){
 			AdRequest adRequest = new AdRequest.Builder()
 			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 			.addTestDevice(getString(R.string.test_device_1))
@@ -188,11 +188,7 @@ public class SpecificsActivity extends CustomActivity {
 			.build();
 			adBanner.loadAd(adRequest);
 		}
-		else{
-			AdRequest adRequest = new AdRequest.Builder()
-			.build();
-			adBanner.loadAd(adRequest);
-		}
+		
 	}
 
 	@Override

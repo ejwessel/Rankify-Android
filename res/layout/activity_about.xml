@@ -153,6 +153,14 @@
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="italic" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Arrow by Naomi Atkinson"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -162,6 +170,7 @@
                 android:text="Created by e-wit"
                 android:textColor="@color/blueButtonColor"
                 android:textSize="20sp" />
+            
         </LinearLayout>
     </LinearLayout>
 

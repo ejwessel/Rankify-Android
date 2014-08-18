@@ -12,8 +12,10 @@ import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -52,7 +55,7 @@ public class CalculateActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calculate_activity);
-
+		
 		setupBannerAd();
 
 		//obtain passed data from previous activity
@@ -75,7 +78,7 @@ public class CalculateActivity extends CustomActivity {
 		gatheringStatusesCheck = (ImageView) findViewById(R.id.gatheringStatusesCheck);
 		gatheringPhotosCheck = (ImageView) findViewById(R.id.gatheringPhotosCheck);
 		retrievingDataCheck = (ImageView) findViewById(R.id.retrievingDataCheck);
-
+		
 		refreshButton = (Button) findViewById(R.id.refreshDataButton);
 		continueButton = (Button) findViewById(R.id.continueButton);
 
@@ -564,15 +567,12 @@ public class CalculateActivity extends CustomActivity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
 		layout.addView(adBanner);
 
-		if (MainActivity.testAds) {
+		if (MainActivity.enableAds) {
 			AdRequest adRequest = new AdRequest.Builder()
 			.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 			.addTestDevice(getString(R.string.test_device_1))
 			.addTestDevice(getString(R.string.test_device_2))
 			.build();
-			adBanner.loadAd(adRequest);
-		} else {
-			AdRequest adRequest = new AdRequest.Builder().build();
 			adBanner.loadAd(adRequest);
 		}
 	}

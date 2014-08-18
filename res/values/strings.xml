@@ -42,6 +42,8 @@
 	<string name="test_device_1">3EC4243996D935975A81EFDA69EB0C3A</string>
 	<string name="test_device_2">BD7F56F335692D980B2274D90B7F3B5E</string>
 	
+	<string name="futura_condensed_extrabold">fonts/futura-condensed-extrabold.ttf</string>
+	
 	<string name="rankify_website">http://e-wit.co.uk/rankifyapp/index.php</string>
 	
 </resources>

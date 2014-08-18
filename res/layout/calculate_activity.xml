@@ -34,7 +34,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/TextView0"
+                android:id="@+id/findingFriends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -71,7 +71,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/sortingAlbums"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -107,7 +107,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/recordingVideos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -144,7 +144,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/skimmingStatuses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -180,7 +180,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/processingPhotos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -217,7 +217,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/rankingFriends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

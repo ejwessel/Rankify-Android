@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ import com.google.android.gms.ads.AdView;
 public class MainActivity extends Activity {
 
 	private static final List<String> PERMISSIONS = Arrays.asList("user_videos", "user_status", "user_photos");
-	public static final Boolean testAds = true;
+	public static final Boolean enableAds = true;
 
 	private Button aboutButton;
 	private Button pullDataButton;
@@ -53,7 +54,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		setupBannerAd();
 
 		aboutButton = (Button) findViewById(R.id.aboutButton);
@@ -212,12 +213,9 @@ public class MainActivity extends Activity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.bannerAd);
 		layout.addView(adBanner);
 
-		if (testAds) {
+		if (enableAds) {
 			AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(getString(R.string.test_device_1))
 					.addTestDevice(getString(R.string.test_device_2)).build();
-			adBanner.loadAd(adRequest);
-		} else {
-			AdRequest adRequest = new AdRequest.Builder().build();
 			adBanner.loadAd(adRequest);
 		}
 	}
