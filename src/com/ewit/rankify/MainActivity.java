@@ -85,15 +85,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-				if (!(userID.equals("") || accessToken.equals("") || hasFriends.equals(""))) {
-					//go to pull data activity
-
-					Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
-					calculateIntent.putExtra("userID", userID);
-					calculateIntent.putExtra("accessToken", accessToken);
-					calculateIntent.putExtra("hasFriends", hasFriends);
-					startActivity(calculateIntent);
-					overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+				System.out.println("pull data was clicked");
+				
+				if (!(userID.equals("") || accessToken.equals(""))) {
+					new GetFriendData().execute(userID); // as soon as we get user id, immediately check if they're in our database
 				}
 			}
 		});
@@ -108,11 +103,11 @@ public class MainActivity extends Activity {
 					//gather user info after successful login
 					userID = user.getId();
 					loginProgress.setVisibility(View.VISIBLE); //this should be shown when we're getting info from facebook, not our database
-					new GetFriendData().execute(userID); // as soon as we get user id, immediately check if they're in our database
 					usersName.setText(user.getName());
 					session = Session.getActiveSession();
 					accessToken = session.getAccessToken();
-					pullDataButton.setEnabled(true);
+					
+					new SendLoginDataToDatabase().execute();
 
 					System.out.println("user id: " + user.getId());
 					System.out.println(user);
@@ -173,20 +168,79 @@ public class MainActivity extends Activity {
 				JSONObject jsonObject = new JSONObject(result);
 				hasFriends = jsonObject.getString("hasFriends");
 				System.out.println("GetFriendData Finished");
-
-				//set visual changes only after we get response from server
-				loginProgress.setVisibility(View.INVISIBLE);
-				profilePictureView.setProfileId(userID);
-				pullDataButton.setEnabled(true);
-				pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_bluebackground));
-				pullDataButton.setTextColor(getResources().getColor(R.color.whiteColor));
-
+				
+				Intent calculateIntent = new Intent(MainActivity.this, CalculateActivity.class);
+				calculateIntent.putExtra("userID", userID);
+				calculateIntent.putExtra("accessToken", accessToken);
+				calculateIntent.putExtra("hasFriends", hasFriends);
+				startActivity(calculateIntent);
+				overridePendingTransition(R.anim.right_slide_in, R.anim.left_slide_out);
+				
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
+	class SendLoginDataToDatabase extends AsyncTask<String, String, String>{
+
+		protected String doInBackground(String... uri) {
+			System.out.println("Sending Data to Database Started");
+			String responseString = null;
+			String urlPath = getString(R.string.site_path) + "users/login/" + userID + "/" + accessToken;
+
+			URL url;
+			try {
+				url = new URL(urlPath);
+				HttpURLConnection urlConnection;
+				try {
+					urlConnection = (HttpURLConnection) url.openConnection();
+					InputStream in = null;
+					try {
+						in = new BufferedInputStream(urlConnection.getInputStream());
+						responseString = fromStream(in);
+
+					} finally {
+						urlConnection.disconnect();
+
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			return responseString;
+		}
+		
+		protected void onPostExecute(String result){
+			super.onPostExecute(result);
+			try {
+				JSONObject jsonObject = new JSONObject(result);
+				String insertedStatus = jsonObject.getString("status");
+				System.out.println("Sending Data to Database Finished");
+				
+				if(insertedStatus.equals("success")){
+					//set visual changes only after we get response from server
+					System.out.println("Database Login Successful");
+					loginProgress.setVisibility(View.INVISIBLE);
+					profilePictureView.setProfileId(userID);
+					pullDataButton.setEnabled(true);
+					pullDataButton.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.textlines_blue_bluebackground));
+					pullDataButton.setTextColor(getResources().getColor(R.color.whiteColor));
+				}
+				else{
+					System.out.println("Database did not receive login info");
+				}
+				
+				
+				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static String fromStream(InputStream in) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		StringBuilder out = new StringBuilder();

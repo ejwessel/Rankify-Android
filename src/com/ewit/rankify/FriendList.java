@@ -146,6 +146,7 @@ public class FriendList extends CustomActivity implements SearchView.OnQueryText
 			postParams.putString("link", getString(R.string.rankify_website));
 			postParams.putString("picture", null);
 			postParams.putString("description", topFriends);
+			postParams.putString("picture", "http://e-wit.co.uk/rankifyapp/img/icon.png");
 //			postParams.putString("message", "TESTING\nTESTING");		//this fucking works! Facebook doesn't tell you this...
 
 			Request.Callback callback = new Request.Callback() {
