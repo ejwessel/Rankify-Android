@@ -1,4 +1,6 @@
-package com.ewit.rankify;
+package com.ewit.rankify1;
+
+import com.ewit.rankify1.R;
 
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;

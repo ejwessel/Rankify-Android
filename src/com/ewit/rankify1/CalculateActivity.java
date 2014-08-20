@@ -1,4 +1,4 @@
-package com.ewit.rankify;
+package com.ewit.rankify1;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ewit.rankify1.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;

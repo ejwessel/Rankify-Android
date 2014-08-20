@@ -21,7 +21,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.ewit.rankify.R;
+import com.ewit.rankify1.R;
 
 public class ImageLoader {
     

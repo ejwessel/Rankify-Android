@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ewit.rankify"
+    package="com.ewit.rankify1"
     android:versionCode="2"
     android:versionName="1.1" >
 
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.ewit.rankify1.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" > <!-- prevents landscape mode -->
             <intent-filter>
@@ -41,27 +41,27 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.ewit.rankify1.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CustomActivity"
+            android:name="com.ewit.rankify1.CustomActivity"
             android:label="@string/title_activity_custom"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CalculateActivity"
+            android:name="com.ewit.rankify1.CalculateActivity"
             android:label="@string/title_activity_calculate"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".FriendList"
+            android:name="com.ewit.rankify1.FriendList"
             android:label="@string/title_activity_friend_list"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".SpecificsActivity"
+            android:name="com.ewit.rankify1.SpecificsActivity"
             android:label="@string/title_activity_specifics"
             android:screenOrientation="portrait" >
         </activity>

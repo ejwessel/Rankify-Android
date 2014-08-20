@@ -1,4 +1,4 @@
-package com.ewit.rankify;
+package com.ewit.rankify1;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ewit.rankify1.R;
 import com.fedorvlasov.lazylist.ImageLoader;
 
 public class FriendDataAdapter extends ArrayAdapter<JSONObject> {
