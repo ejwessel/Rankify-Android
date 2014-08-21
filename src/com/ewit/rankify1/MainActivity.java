@@ -36,8 +36,8 @@ import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends Activity {
 
-	private static final List<String> PERMISSIONS = Arrays.asList("user_videos", "user_status", "user_photos");
-	public static final Boolean enableAds = false;
+	private static final List<String> PERMISSIONS = Arrays.asList("user_videos", "user_status", "user_photos", "user_friends");
+	public static final Boolean enableAds = true;
 
 	private Button aboutButton;
 	private Button pullDataButton;
