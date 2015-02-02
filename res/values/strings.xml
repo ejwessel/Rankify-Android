@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="site_path">http://e-wit.co.uk/rankify/</string>
+    <string name="site_path">http://ewit.me/rankify/</string>
     <string name="app_name">Rankify</string>
     <string name="action_settings">Settings</string>
     <string name="app_id">1397650163819409</string>
